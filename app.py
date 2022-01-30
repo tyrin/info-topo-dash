@@ -3,9 +3,9 @@ import streamlit.components.v1 as components
 import networkx as nx
 import matplotlib.pyplot as plt
 from pyvis.network import Network
-import got 
+import got
 #Network(notebook=True)
-st.title('Hello Pyvis')
+st.title('Content Domain Relationships for Developer Doc')
 # make Network show itself with repr_html
 
 #def net_repr_html(self):
@@ -14,29 +14,29 @@ st.title('Hello Pyvis')
 #  return html
 
 #Network._repr_html_ = net_repr_html
-st.sidebar.title('Choose your favorite Graph')
-option=st.sidebar.selectbox('select graph',('Simple','Karate', 'GOT'))
-physics=st.sidebar.checkbox('add physics interactivity?')
-got.simple_func(physics)
+st.sidebar.title('Choose the relationship:')
+option=st.sidebar.selectbox('select graph',('All','Conrefs', 'Xrefs'))
+#physics=st.sidebar.checkbox('add physics interactivity?')
+#got.simple_func(physics)
 
-if option=='Simple':
-  HtmlFile = open("test.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read() 
+if option=='All':
+  HtmlFile = open("All.html", 'r', encoding='utf-8')
+  source_code = HtmlFile.read()
   components.html(source_code, height = 900,width=900)
 
 
-got.got_func(physics)
+#got.got_func(physics)
 
-if option=='GOT':
-  HtmlFile = open("gameofthrones.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read() 
+if option=='Conrefs':
+  HtmlFile = open("Conrefs.html", 'r', encoding='utf-8')
+  source_code = HtmlFile.read()
   components.html(source_code, height = 1200,width=1000)
 
 
 
-got.karate_func(physics)
+#got.karate_func(physics)
 
-if option=='Karate':
-  HtmlFile = open("karate.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read() 
+if option=='Xrefs':
+  HtmlFile = open("xrefs.html", 'r', encoding='utf-8')
+  source_code = HtmlFile.read()
   components.html(source_code, height = 1200,width=1000)

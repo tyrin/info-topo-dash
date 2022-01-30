@@ -7,3 +7,6 @@ public/
 .settings/*
 resources/_gen/*
 *~
+~*
+*~*
+app~.py
