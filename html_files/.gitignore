@@ -1,0 +1,9 @@
+.DS_Store
+*/.DS_Store
+**/.DS_Store
+public/
+.project
+.settings
+.settings/*
+resources/_gen/*
+*~

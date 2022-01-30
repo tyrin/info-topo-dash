@@ -3,3 +3,7 @@ __pycache__/
 *$py.class
 yolov3.weights
 yolov3.cfg
+*~
+.DS_Store
+*/.DS_Store
+**/.DS_Store
