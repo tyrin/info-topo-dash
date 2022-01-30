@@ -1,5 +1,7 @@
-# streamlit_network
+This app is available at
+http://share.streamlit.io/streamlit/info-topo-dash/master/app.py
 
- [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/napoles-uach/streamlit_network/main/app.py)
- 
- For pyvis and networkx
+This app is deployed from
+https://share.streamlit.io/tyrin/info-topo-dash/app.py
+
+Right now it allows you to pick between three existing visualization: for xrefs, conrefs, and for all relationships.
