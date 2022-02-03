@@ -19,16 +19,16 @@ option=st.sidebar.selectbox('select a relationship', ('All Xrefs for Apex','All 
 #physics=st.sidebar.checkbox('add physics interactivity?')
 #relationships.simple_func(physics)
 
+if option=='All Conrefs for Apex Android And Mobile SDK':
+  HtmlFile = open("filterdata-conref-apex_mobile_sdk_android.html", 'r', encoding='utf-8')
+  source_code = HtmlFile.read()
+  components.html(source_code, height = 900,width=900)
 if option=='All Xrefs for Apex':
-  HtmlFile = open("All-xref-apex.html", 'r', encoding='utf-8')
+  HtmlFile = open("filterdata-xref-apex.html", 'r', encoding='utf-8')
   source_code = HtmlFile.read()
   components.html(source_code, height = 900,width=900)
 if option=='All Refs for Apex':
-  HtmlFile = open("All-all-apex.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read()
-  components.html(source_code, height = 900,width=900)
-if option=='All Conrefs for Apex Android And Mobile SDK':
-  HtmlFile = open("All-conref-apex_mobile_sdk_android.html", 'r', encoding='utf-8')
+  HtmlFile = open("filterdata-all-apex.html", 'r', encoding='utf-8')
   source_code = HtmlFile.read()
   components.html(source_code, height = 900,width=900)
 
