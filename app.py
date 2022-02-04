@@ -15,22 +15,22 @@ st.title('Content Domain Relationships for Developer Doc')
 
 #Network._repr_html_ = net_repr_html
 st.sidebar.title('Choose the visualization:')
-option=st.sidebar.selectbox('select a relationship', ('All Xrefs for Apex','All Refs for Apex', 'All Conrefs for Apex Android And Mobile SDK', 'Conrefs', 'Xrefs'))
+option=st.sidebar.selectbox('select a relationship', ('All Conrefs for Apex Android And Mobile SDK','All Xrefs for Apex', 'All Refs for Apex','Conrefs', 'Xrefs'))
 #physics=st.sidebar.checkbox('add physics interactivity?')
 #relationships.simple_func(physics)
 
 if option=='All Conrefs for Apex Android And Mobile SDK':
   HtmlFile = open("filterdata-conref-apex_mobile_sdk_android.html", 'r', encoding='utf-8')
   source_code = HtmlFile.read()
-  components.html(source_code, height = 900,width=900)
+  components.html(source_code, height = 750,width=100%)
 if option=='All Xrefs for Apex':
   HtmlFile = open("filterdata-xref-apex.html", 'r', encoding='utf-8')
   source_code = HtmlFile.read()
-  components.html(source_code, height = 900,width=900)
+  components.html(source_code, height = 750,width=100%)
 if option=='All Refs for Apex':
   HtmlFile = open("filterdata-all-apex.html", 'r', encoding='utf-8')
   source_code = HtmlFile.read()
-  components.html(source_code, height = 900,width=900)
+  components.html(source_code, height = 750,width=100%)
 
 
 #relationships.relationships_func(physics)
