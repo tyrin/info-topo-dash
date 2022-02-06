@@ -1,0 +1,69 @@
+#run from app.py
+from pyvis.network import Network
+import numpy as np
+import os
+import sys
+import pandas as pd
+
+def vizrender(title, ref, domain, physics):
+    # set the network options
+    ccx_net = Network(height='750px', width='750', bgcolor='white', font_color='blue', heading=title)
+
+    #read inputfile
+    df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data.csv")
+    #set outputfile
+    #just use the whole output file if they want all of both
+    if ref == 'all' and 'all' in domain:
+        dff = df
+
+    elif  ref=='all':
+        dff = df.loc[df['Group'].isin(domain)]
+
+    elif domain=='all':
+        dff = df.loc[df['Ref'] == ref]
+
+    else:
+        dff = df.loc[(df['Group'].isin(domain)) & (df['Ref'] == ref)]
+
+    sources = dff['Source']
+    targets = dff['Target']
+    weights = dff['Weight']
+    refs = dff['Ref']
+    groups = dff['Group']
+    colors = dff['Color']
+    labels = dff['Label']
+    tgtgroup = dff['TargetGroup']
+    tgtcolors = dff['TargetColor']
+    tgtlabels = dff['TargetLabel']
+
+    edge_data = zip(sources, targets, weights, refs, groups, colors, labels, tgtgroup, tgtcolors, tgtlabels)
+
+    for e in edge_data:
+        src = e[0]
+        tgt = e[1]
+        w = e[2]
+        rt = e[3]
+        grp = e[4]
+        clr = e[5]
+        lbl = e[6]
+        tgtgrp = e[7]
+        tgtclr = e[8]
+        tgtlbl = e[9]
+
+    # node_id, label, named args
+        ccx_net.add_node(src, lbl, title=src, color=clr)
+        ccx_net.add_node(tgt, tgtlbl, title=tgt, color=tgtclr)
+        ccx_net.add_edge(src, tgt, value=w)
+
+    neighbor_map = ccx_net.get_adj_list()
+
+    # add neighbor data to node hover data
+    for node in ccx_net.nodes:
+        node['title'] += ' Neighbors:<br>' + '<br>'.join(neighbor_map[node['id']])
+        node['value'] = len(neighbor_map[node['id']])
+    if physics:
+        ccx_net.show_buttons(filter_=['physics'])
+        ccx_net.show("data.html")
+    else:
+        ccx_net.show("data.html")
+    #display(HTML(outputfile))

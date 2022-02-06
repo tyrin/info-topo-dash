@@ -3,48 +3,32 @@ import streamlit.components.v1 as components
 import networkx as nx
 import matplotlib.pyplot as plt
 from pyvis.network import Network
-import relationships
-#Network(notebook=True)
-st.title('Content Domain Relationships for Developer Doc')
-# make Network show itself with repr_html
+import refs
+st.header("CCX Data Visualization")
+st.subheader("Content Dependencies")
+#st.write("Examine relationships between different books and clouds.")
+#st.title('Content Domain Relationships for Developer Doc')
 
-#def net_repr_html(self):
-#  nodes, edges, height, width, options = self.get_network_data()
-#  html = self.template.render(height=height, width=width, nodes=nodes, edges=edges, options=options)
-#  return html
-
-#Network._repr_html_ = net_repr_html
+title = 'network graph'
 st.sidebar.title('Choose the visualization:')
-option=st.sidebar.selectbox('select a relationship', ('All Conrefs for Apex Android And Mobile SDK','All Xrefs for Apex', 'All Refs for Apex','Conrefs', 'Xrefs'))
-#physics=st.sidebar.checkbox('add physics interactivity?')
-#relationships.simple_func(physics)
+ref = st.sidebar.radio(
+	"Reference Type:",
+	('conref', 'xref', 'all'))
 
-if option=='All Conrefs for Apex Android And Mobile SDK':
-  HtmlFile = open("filterdata-conref-apex_mobile_sdk_android.html", 'r', encoding='utf-8')
+domains = st.sidebar.multiselect(
+	'Content Domain:',
+	['all', 'ajax', 'android_native_development', 'android', 'apex', 'api', 'api_action', 'api_analytics', 'api_asynch', 'api_bulk_v2', 'api_c360a', 'api_cti', 'api_datadotcom_dev_guide', 'api_datadotcom_match', 'api_datadotcom_search', 'api_df', 'api_dj', 'api_gateway', 'api_gpl', 'api_iot', 'api_meta', 'api_rest', 'api_rest_encryption', 'api_streaming', 'api_tooling', 'api_ui', 'aura', 'b2b_comm_lex', 'b2b_commerce', 'canvas', 'change_data_capture', 'chat', 'chat_rest', 'chatter_connect', 'cms', 'communities_dev', 'connectapi', 'daas', 'data', 'developer', 'eclipse', 'exp_cloud_lwr', 'field_service', 'forcecom', 'fsc_api', 'healthcare_api', 'industries', 'integration_patterns', 'ios', 'ios_native_development', 'knowledge', 'langCon', 'limits', 'loyalty', 'manufacturing_api', 'maps', 'methods', 'mobile_sdk', 'ns_healthcloudext', 'ns_LoyaltyManagement', 'objects', 'omnichannel', 'one_c', 'order_management', 'pages', 'platform_connect', 'platform_events', 'psc_api', 'rebates_api', 'reference', 'resource', 'resources', 'restriction_rules', 'salesforce_scheduler', 'salesforce1', 'scoping_rules', 'secure_coding', 'service_sdk', 'sfdx_cli', 'sfdx_dev', 'sfdx_setup', 'soql_sosl', 'source_files', 'sustainability', 'voice', 'voice_pt', 'vpm', 'workdotcom']
+  )
+physics = st.sidebar.checkbox('Add physics interactivity?')
+
+#if 'none' in domains:
+if len(domains) == 0:
+  st.write('Select a reference type and domain in the sidebar.')
+else:
+  #vizrender(title, relationship, domain, physics)
+  refs.vizrender(title, ref, domains, physics)
+  HtmlFile = open("data.html", 'r', encoding='utf-8')
   source_code = HtmlFile.read()
-  components.html(source_code, height = 750,width=100%)
-if option=='All Xrefs for Apex':
-  HtmlFile = open("filterdata-xref-apex.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read()
-  components.html(source_code, height = 750,width=100%)
-if option=='All Refs for Apex':
-  HtmlFile = open("filterdata-all-apex.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read()
-  components.html(source_code, height = 750,width=100%)
+  components.html(source_code, height = 1200,width=900)
 
-
-#relationships.relationships_func(physics)
-
-if option=='Conrefs':
-  HtmlFile = open("Conrefs.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read()
-  components.html(source_code, height = 1200,width=1000)
-
-
-
-#relationships.karate_func(physics)
-
-if option=='Xrefs':
-  HtmlFile = open("Xrefs.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read()
-  components.html(source_code, height = 1200,width=1000)
+#	st.write(title, ref, domains, physics)
