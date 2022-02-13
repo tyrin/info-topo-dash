@@ -5,14 +5,14 @@ import os
 import sys
 import pandas as pd
 
-def vizrender(title, ref, domain, physics):
+def vizrender(ref, domain, physics, search, term):
     # set the network options
-    ccx_net = Network(height='750px', width='750', bgcolor='white', font_color='blue', heading=title)
+    ccx_net = Network(height='750px', width='750', bgcolor='white', font_color='blue', heading="")
 
     #read inputfile
     df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data.csv")
     #set outputfile
-    #just use the whole output file if they want all of both
+    # filter by relationship and domain
     if ref == 'all' and 'all' in domain:
         dff = df
 
@@ -24,17 +24,26 @@ def vizrender(title, ref, domain, physics):
 
     else:
         dff = df.loc[(df['Group'].isin(domain)) & (df['Ref'] == ref)]
+# keyword filtering
+    if term == 'no':
+        dfff = dff
 
-    sources = dff['Source']
-    targets = dff['Target']
-    weights = dff['Weight']
-    refs = dff['Ref']
-    groups = dff['Group']
-    colors = dff['Color']
-    labels = dff['Label']
-    tgtgroup = dff['TargetGroup']
-    tgtcolors = dff['TargetColor']
-    tgtlabels = dff['TargetLabel']
+    elif  search=='label':
+        dfff = dff.loc[(df['Label'].str.contains(term)) | (df['TargetLabel'].str.contains(term))]
+
+    else:
+        dfff = dff.loc[(df['Source'].str.contains(term)) | (df['Target'].str.contains(term))]
+
+    sources = dfff['Source']
+    targets = dfff['Target']
+    weights = dfff['Weight']
+    refs = dfff['Ref']
+    groups = dfff['Group']
+    colors = dfff['Color']
+    labels = dfff['Label']
+    tgtgroup = dfff['TargetGroup']
+    tgtcolors = dfff['TargetColor']
+    tgtlabels = dfff['TargetLabel']
 
     edge_data = zip(sources, targets, weights, refs, groups, colors, labels, tgtgroup, tgtcolors, tgtlabels)
 
