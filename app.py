@@ -34,7 +34,7 @@ else:
 if len(domains) == 0:
   st.write('Select a reference type and domain in the sidebar. Keyword filtering is optional.')
 else:
-  graphtitle = 'Network graph for ' + ','.join(domains) + ' ' + ref + 's and ' + term + ' keyword'
+  graphtitle = 'Network graph for ' + ','.join(domains) + ' ' + ref + 's and ' + term + ' keyword(s)'
   st.write(graphtitle)
   #vizrender(title, relationship, domain, physics, search, term)
   refs.vizrender(ref, domains, physics, search, term)
