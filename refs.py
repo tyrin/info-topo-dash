@@ -6,7 +6,7 @@ import sys
 import pandas as pd
 
 def vizrender(ref, domain, physics, search, term):
-	ccx_net = Network(height='750px', width='100%', bgcolor='white', font_color='blue')
+	ccx_net = Network(height='750px', width='100%', bgcolor='white', font_color='blue', heading=filename)
 
 	# set the network options
 	ccx_net.set_options('''
