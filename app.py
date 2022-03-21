@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from pyvis.network import Network
 import numpy as np
 import netviz
-import heat
 import Dist
 import scatter
 import scatter2
