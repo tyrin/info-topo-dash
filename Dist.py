@@ -1,7 +1,6 @@
 #plotly distribution plot
 import matplotlib.pyplot as plt
 import streamlit as st
-import plotly.figure_factory as ff
 import numpy as np
 import pandas as pd
 
