@@ -3,43 +3,110 @@ import streamlit.components.v1 as components
 import networkx as nx
 import matplotlib.pyplot as plt
 from pyvis.network import Network
-import refs
-st.header("CCX Data Visualization")
-st.subheader("Content Dependencies")
-#st.write("Examine relationships between different books and clouds.")
-#st.title('Content Domain Relationships for Developer Doc')
+import numpy as np
+import netviz
+import heat
+import Dist
+import scatter
+import scatter2
+import treemap2
+#import stackedbar
+import pandas as pd
+st.set_page_config(layout="wide")
 
-st.sidebar.title('Choose the visualization:')
-ref = st.sidebar.radio(
-	"Reference Type:",
-	('conref', 'xref', 'all'))
+def main():
+#	readme_text = st.expander("Not sure how to use the tool?", expanded=False)
+#	with readme_text:
+#		st.write("my explanation")
+#add two expands, one for help and one for resources
+	st.header("CCX Data Visualization")
+	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/TotalOrganicKeywords-Jan2021vsJan2022.csv")
+	app_mode = st.sidebar.selectbox("Check your content for:",
+		['<select>', "Shared Content", "Linked Content", "Relevance", "Freshness", "Comparison", "Complex Questions", "Beta"])
+	if app_mode == "<select>":
+		home()
+		#readme_text.empty()
+	elif app_mode == "Shared Content":
+		#readme_text.empty()
+		shared_content_page()
+	elif app_mode == "Linked Content":
+		#readme_text.empty()
+		linked_content_page()
+	elif app_mode == "Relevance":
+		#readme_text.empty()
+		relevance_page(df)
+	elif app_mode == "Freshness":
+		#readme_text.empty()
+		freshness_page()
+	elif app_mode == "Comparison":
+		#readme_text.empty()
+		comparison_page()
+	elif app_mode == "Complex Questions":
+		#readme_text.empty()
+		complex_page()
+	elif app_mode == "Beta":
+		#readme_text.empty()
+		test_page()
 
-domains = st.sidebar.multiselect(
-	'Content Domain:',
-	['all', 'ajax', 'android_native_development', 'android', 'apex', 'api', 'api_action', 'api_analytics', 'api_asynch', 'api_bulk_v2', 'api_c360a', 'api_cti', 'api_datadotcom_dev_guide', 'api_datadotcom_match', 'api_datadotcom_search', 'api_df', 'api_dj', 'api_gateway', 'api_gpl', 'api_iot', 'api_meta', 'api_rest', 'api_rest_encryption', 'api_streaming', 'api_tooling', 'api_ui', 'aura', 'b2b_comm_lex', 'b2b_commerce', 'canvas', 'change_data_capture', 'chat', 'chat_rest', 'chatter_connect', 'cms', 'communities_dev', 'connectapi', 'daas', 'data', 'developer', 'eclipse', 'exp_cloud_lwr', 'field_service', 'forcecom', 'fsc_api', 'healthcare_api', 'industries', 'integration_patterns', 'ios', 'ios_native_development', 'knowledge', 'langCon', 'limits', 'loyalty', 'manufacturing_api', 'maps', 'methods', 'mobile_sdk', 'ns_healthcloudext', 'ns_LoyaltyManagement', 'objects', 'omnichannel', 'one_c', 'order_management', 'pages', 'platform_connect', 'platform_events', 'psc_api', 'rebates_api', 'reference', 'resource', 'resources', 'restriction_rules', 'salesforce_scheduler', 'salesforce1', 'scoping_rules', 'secure_coding', 'service_sdk', 'sfdx_cli', 'sfdx_dev', 'sfdx_setup', 'soql_sosl', 'source_files', 'sustainability', 'voice', 'voice_pt', 'vpm', 'workdotcom']
-  )
-search = st.sidebar.radio(
+# THIS IS THE SECTION THAT CONTAINS UTILITY FUNCTIONS
+
+# THIS IS THE SECTION THAT RENDERS EACH PAGE
+def home():
+	st.sidebar.success("Select a visualization in the sidebar.")
+	with st.expander("How Do I Use the Writer's Dashboard?"):
+		st.write("""
+			Information about usage.
+		""")
+	with st.expander("Resources"):
+		st.write("""
+			Resource Information
+		""")
+
+def shared_content_page():
+	st.subheader("Shared Content")
+	ref='conref'
+	#  clist = df['country'].unique()
+	# country = st.selectbox("Select a country:",clist)
+	netviz.main(ref)
+
+def linked_content_page():
+	st.subheader("Linked Content")
+	ref = 'xref'
+	netviz.main(ref)
+
+def relevance_page(df):
+	st.subheader("Relevant Content")
+	scattersearch = st.sidebar.radio(
 	"Keyword search for:",
-	('labels', 'nodes'))
-searchterm = st.sidebar.text_input('Enter a keyword', value="", max_chars=25)
+	('term', 'page'))
+	scatterterm=""
+	if len(scatterterm) == 0:
+		scatterterm = 'no'
+	scatterterm = st.sidebar.text_input('Enter a search term:', value="", max_chars=25)
+	scatter2.matscatterplot3(scatterterm, scattersearch)
 
-physics = st.sidebar.checkbox('Add physics interactivity?')
+def freshness_page():
+	st.subheader("Fresh Content")
+	#heat.main()
+	Dist.main()
 
-if len(searchterm) == 0:
-	term = 'no'
-else:
-	term = searchterm
+def comparison_page():
+	st.subheader("Compared Content")
+	treemap2.main()
+	#stackedbar()
 
-#if 'none' in domains:
-if len(domains) == 0:
-  st.write('Select a reference type and domain in the sidebar. Keyword filtering is optional.')
-else:
-  graphtitle = 'Network graph for ' + ','.join(domains) + ' ' + ref + 's and ' + term + ' keyword'
-  st.write(graphtitle)
-  #vizrender(title, relationship, domain, physics, search, term)
-  refs.vizrender(ref, domains, physics, search, term)
-  HtmlFile = open("data.html", 'r', encoding='utf-8')
-  source_code = HtmlFile.read()
-  components.html(source_code, height = 1200,width=900)
+def complex_page():
+	st.subheader("Complex Questions")
+	st.write("This graph is complex and may take longer to load. ")
+	st.write("If you encounter a blank screen, refresh your browser and try again.")
+	ref = 'choose'
+	netviz.main(ref)
 
-#	st.write(title, ref, domains, physics)
+def test_page():
+	st.subheader("Beta")
+	st.write("These graphics are under development ")
+#Unique list of domains...?
+#dlist = df['country'].unique()
+
+if __name__ == "__main__":
+	main()
