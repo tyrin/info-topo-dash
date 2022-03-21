@@ -1,5 +1,4 @@
 #plotly distribution plot
-import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 import plotly.figure_factory as ff
