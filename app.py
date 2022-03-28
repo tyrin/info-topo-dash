@@ -5,11 +5,13 @@ import matplotlib.pyplot as plt
 from pyvis.network import Network
 import numpy as np
 import netviz
+import complex
+import hist
 import Dist
 import scatter
 import scatter2
 import treemap2
-#import stackedbar
+import stackedbar
 import pandas as pd
 st.set_page_config(layout="wide")
 
@@ -87,23 +89,28 @@ def relevance_page(df):
 def freshness_page():
 	st.subheader("Fresh Content")
 	#heat.main()
-	Dist.main()
+	hist.main()
 
 def comparison_page():
-	st.subheader("Compared Content")
-	treemap2.main()
-	#stackedbar()
+	st.subheader("Compare Content")
+	comparetype = st.sidebar.radio(
+		"Select a Visualization",
+		('Reference Treemap', 'Portal Freshness'))
+	if comparetype == "Reference Treemap":
+		treemap2.main()
+
+	elif comparetype == "Portal Freshness":
+		stackedbar.comparebar()
 
 def complex_page():
 	st.subheader("Complex Questions")
-	st.write("This graph is complex and may take longer to load. ")
-	st.write("If you encounter a blank screen, refresh your browser and try again.")
+	st.write("This graph is complex and may take longer to load. If you encounter a blank screen, refresh your browser and try again.")
 	ref = 'choose'
-	netviz.main(ref)
+	complex.main()
 
 def test_page():
 	st.subheader("Beta")
-	st.write("These graphics are under development ")
+	st.write("This graph is complex and may take longer to load. ")
 #Unique list of domains...?
 #dlist = df['country'].unique()
 

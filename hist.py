@@ -9,8 +9,9 @@ import pandas as pd
 def main():
 # Add histogram data
 	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/freshdata.csv")
-	site= df['Portal'].unique()
+
 #define variables that the customer will input
+	site= df['Portal'].unique()
 	domain=""
 	portal=""
 	portal = st.sidebar.multiselect(
@@ -64,8 +65,13 @@ def main():
 		labels = ax.get_xticks().tolist()
 		labels = pd.to_datetime(labels)
 		ax.set_xticklabels(labels, rotation=90)
-
-		st.pyplot(fig)
+		fig.update_traces(mode="markers")
+		fig.update_layout(
+			height=400,
+			title_text='Date Distribution'
+		)
+		#st.pyplot(fig)
+		st.pyplot(fig, use_container_width=True)
 		st.dataframe(fd)
 	@st.cache
 	def convert_df(fd):
