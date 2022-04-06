@@ -64,12 +64,7 @@ def main():
 		labels = ax.get_xticks().tolist()
 		labels = pd.to_datetime(labels)
 		ax.set_xticklabels(labels, rotation=90)
-		fig.update_traces(mode="markers")
-		fig.update_layout(
-			height=400,
-			title_text='Date Distribution'
-		)
-		#st.pyplot(fig)
+
 		st.pyplot(fig, use_container_width=True)
 		st.dataframe(fd)
 	@st.cache
