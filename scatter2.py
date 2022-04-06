@@ -10,7 +10,7 @@ import plotly.express as px
 
 #GRAPH WITHOUT LABELS----------------------------------------------
 def matscatterplot3(scatterterm, scattersearch):
-
+	message = st.empty()
 #GRAPH WITHOUT LABELS----------------------------------------------
 # Note Plotly express can't be included directly in streamlit, you have to render it as an html page and then read it in
 # the same way you do with networkx visualizations.
@@ -26,8 +26,13 @@ def matscatterplot3(scatterterm, scattersearch):
 	elif  scattersearch=='page':
 		dff = df.loc[(df['Page'].str.contains(scatterterm))]
 
+
 	else:
 		dff = df.loc[(df['Keyword'].str.contains(scatterterm))]
+	# if the term has no results, tell them and use the full data frame
+	if dff.empty:
+		message.text("No results for your term. Check the data below to find a valid keyword.")
+		dff = df
 
 	dff['CustomerSearch'] = df['Keyword'] + "<br>Page: " + df['Page']
 

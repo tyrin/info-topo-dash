@@ -35,7 +35,6 @@ def main():
 		#message.text("Filter by date")
 		dfff = df.loc[(df['Portal'].isin(portal)) & (df['Group'].isin(domain))]
 		fd = dfff.filter(items=['Date', 'Node'])
-		#fd['Date'] = fd['Date'].astype('datetime64[ns]')
 		fd['Date'] = fd['Date'].astype('datetime64')
 
 

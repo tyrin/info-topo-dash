@@ -43,8 +43,6 @@ def main(ref):
 		#netviz module refrender(relationship, domain, physics)
 		refrender(ref, domains, physics)
 
-
-
 def refrender(ref, domain, physics):
     # set the network options
     ccx_net = Network(height='750px', width='100%', bgcolor='white', font_color='blue', heading="")
@@ -57,7 +55,8 @@ def refrender(ref, domain, physics):
         dfff = df.loc[df['Ref'] == ref]
 
     else:
-        dfff = df.loc[(df['Group'].isin(domain)) & (df['Ref'] == ref)]
+        dff = df.loc[(df['Group'].isin(domain)) | (df['TargetGroup'].isin(domain))]
+        dfff = dff.loc[dff['Ref'] == ref]
 
     sources = dfff['Source']
     targets = dfff['Target']

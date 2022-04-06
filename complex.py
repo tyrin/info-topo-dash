@@ -55,7 +55,8 @@ def complexviz(ref, domain, physics, search, term):
         dff = df.loc[df['Ref'] == ref]
 
     else:
-        dff = df.loc[(df['Group'].isin(domain)) & (df['Ref'] == ref)]
+        dfa = df.loc[(df['Group'].isin(domain)) | (df['TargetGroup'].isin(domain))]
+        dff = dfa.loc[dfa['Ref'] == ref]
 # keyword filtering
     if term == 'no':
         dfff = dff
