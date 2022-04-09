@@ -24,10 +24,14 @@ def comparebar():
 
 	dff = df.loc[df['Portal'].isin(portal)]
 	dfs = dff.sort_values(by='Group')
-	group = dfs['Group'].unique()
+	#group = dfs['Group'].unique()
+	# convert the 'Date' column to datetime format
+	dfs['Date']= pd.to_datetime(df['Date'])
 
-	fd = dff['Date'].astype('datetime64')
-	fig = px.histogram(dff, x="Date", color="Group")
+	# Check the format of 'Date' column
+	#dfs.info()
+
+	fig = px.histogram(dfs, x="Date", color="Group")
 
 	## Create distplot with custom bin_size
 	#fig = ff.create_distplot(
@@ -36,4 +40,4 @@ def comparebar():
 	## Plot!
 	st.plotly_chart(fig, use_container_width=True)
 
-	st.dataframe (df)
+
