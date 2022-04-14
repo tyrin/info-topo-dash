@@ -76,7 +76,7 @@ def linked_content_page():
 	netviz.main(ref)
 
 def relevance_page(df):
-	st.subheader("Relevant Content")
+	st.subheader("Relevance")
 	scattersearch = st.sidebar.radio(
 	"Keyword search for:",
 	('term', 'page'))
@@ -87,14 +87,14 @@ def relevance_page(df):
 	scatter2.matscatterplot3(scatterterm, scattersearch)
 
 def freshness_page():
-	st.subheader("Fresh Content")
+	st.subheader("Freshness")
 	#heat.main()
 	hist.main()
 
 def comparison_page():
-	st.subheader("Compare Content")
+	st.subheader("Comparison")
 	comparetype = st.sidebar.radio(
-		"Select a Visualization",
+		"Select a visualization",
 		('Reference Treemap', 'Portal Freshness'))
 	if comparetype == "Reference Treemap":
 		treemap2.main()

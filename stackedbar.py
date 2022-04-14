@@ -19,25 +19,38 @@ def comparebar():
 	message = st.empty()
 	if len(portal) == 0:
 		message.text("Select a portal")
-	#filer the data by the selected portal
+	#filter the data by the selected portal
 
+	if len(portal) > 0:
+		dff = df.loc[df['Portal'].isin(portal)]
+		dfs = dff.sort_values(by='Group')
+		#group = dfs['Group'].unique()
+		# convert the 'Date' column to datetime format
+		dfs['Date']= pd.to_datetime(df['Date'])
 
-	dff = df.loc[df['Portal'].isin(portal)]
-	dfs = dff.sort_values(by='Group')
-	#group = dfs['Group'].unique()
-	# convert the 'Date' column to datetime format
-	dfs['Date']= pd.to_datetime(df['Date'])
+		# Check the format of 'Date' column
+		#dfs.info()
 
-	# Check the format of 'Date' column
-	#dfs.info()
+		fig = px.histogram(dfs, x="Date", color="Group")
 
-	fig = px.histogram(dfs, x="Date", color="Group")
+		## Create distplot with custom bin_size
+		#fig = ff.create_distplot(
+		#     hist_data, group, bin_size=[.1, .25, .5])
+		#
+		## Plot!
+		st.plotly_chart(fig, use_container_width=True)
 
-	## Create distplot with custom bin_size
-	#fig = ff.create_distplot(
-	#     hist_data, group, bin_size=[.1, .25, .5])
-	#
-	## Plot!
-	st.plotly_chart(fig, use_container_width=True)
-
-
+#		st.dataframe(dfs)
+#	@st.cache
+#	def convert_df(dff):
+#	   return dff.to_csv().encode('utf-8')
+#	if len(portal) != 0:
+#		csv = convert_df(dff)
+#
+#		st.download_button(
+#		   "Press to Download",
+#		   csv,
+#		   "freshness.csv",
+#		   "text/csv",
+#		   key='download-csv'
+#		)

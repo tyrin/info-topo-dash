@@ -7,14 +7,14 @@ import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
 def main():
+#read inputfile
+	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/data.csv")
+
+#define variables that the customer will input
 	ref = st.sidebar.radio(
 		"Reference Type:",
 		('conref', 'xref', 'all'))
 
-	domains = st.sidebar.multiselect(
-		'Content Domain:',
-		['all', 'ajax', 'android_native_development', 'android', 'apex', 'api', 'api_action', 'api_analytics', 'api_asynch', 'api_bulk_v2', 'api_c360a', 'api_cti', 'api_datadotcom_dev_guide', 'api_datadotcom_match', 'api_datadotcom_search', 'api_df', 'api_dj', 'api_gateway', 'api_gpl', 'api_iot', 'api_meta', 'api_rest', 'api_rest_encryption', 'api_streaming', 'api_tooling', 'api_ui', 'aura', 'b2b_comm_lex', 'b2b_commerce', 'canvas', 'change_data_capture', 'chat', 'chat_rest', 'chatter_connect', 'cms', 'communities_dev', 'connectapi', 'daas', 'data', 'developer', 'eclipse', 'exp_cloud_lwr', 'field_service', 'forcecom', 'fsc_api', 'healthcare_api', 'industries', 'integration_patterns', 'ios', 'ios_native_development', 'knowledge', 'langCon', 'limits', 'loyalty', 'manufacturing_api', 'maps', 'methods', 'mobile_sdk', 'ns_healthcloudext', 'ns_LoyaltyManagement', 'objects', 'omnichannel', 'one_c', 'order_management', 'pages', 'platform_connect', 'platform_events', 'psc_api', 'rebates_api', 'reference', 'resource', 'resources', 'restriction_rules', 'salesforce_scheduler', 'salesforce1', 'scoping_rules', 'secure_coding', 'service_sdk', 'sfdx_cli', 'sfdx_dev', 'sfdx_setup', 'soql_sosl', 'source_files', 'sustainability', 'voice', 'voice_pt', 'vpm', 'workdotcom']
-	  )
 	search = st.sidebar.radio(
 		"Keyword search for:",
 		('labels', 'nodes'))
@@ -27,15 +27,30 @@ def main():
 	else:
 		term = searchterm
 
-	#if 'none' in domains:
-	if len(domains) == 0:
-	  st.write('Select a reference type and domain in the sidebar. Keyword filtering is optional.')
-	else:
-	  graphtitle = 'Complex network graph of ' + ref + " references for "+ ','.join(domains) + ' domain(s) with ' + term + " keywords"
-	  st.write(graphtitle)
-  #complexviz(title, relationship, domain, physics, search, term)
+	site= df['Portal'].unique()
+	domain="all"
+	portal=""
+	portal = st.sidebar.multiselect(
+	'Portal:', site)
+	message = st.empty()
+	if len(portal) == 0:
+		message.text("Select a portal and/or content domain to filter results")
 
-	complexviz(ref, domains, physics, search, term)
+	if (len(portal) > 0) and (len(domain) == 0):
+		message.text("Select a reference type and domain in the sidebar. Keyword filtering is optional.")
+		#df[df['country'] == country]
+		dff = df.loc[df['Portal'].isin(portal)]
+		dfs = dff.sort_values(by='Group')
+		group = dfs['Group'].unique()
+		domains = st.sidebar.multiselect('Content Domain:', group)
+		dfff = df.loc[df['Portal'].isin(portal)]
+
+	if (len(portal) > 0) and (len(domain) > 0):
+		dfff = df.loc[(df['Portal'].isin(portal)) & (df['Group'].isin(domain))]
+		graphtitle = 'Complex network graph of ' + ref + " references for "+ ','.join(domains) + ' domain(s) with ' + term + " keywords"
+		st.write(graphtitle)
+		#complexviz(title, relationship, domain, physics, search, term)
+		complexviz(ref, domains, physics, search, term)
 
 def complexviz(ref, domain, physics, search, term):
     # set the network options

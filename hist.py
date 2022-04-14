@@ -36,21 +36,9 @@ def main():
 		dfff = df.loc[(df['Portal'].isin(portal)) & (df['Group'].isin(domain))]
 		fd = dfff.filter(items=['Date', 'Node'])
 		fd['Date'] = fd['Date'].astype('datetime64')
+#Using the below makes causes an error in the streamlit dataframe call, so I have to use the above.
+#fd['Date']= pd.to_datetime(df['Date'])
 
-
-#sort ascending
-#		dfs = dff.sort_values(by='Group')
-#		group = dfs['Group'].unique()
-#print out data types
-#		z = pd.to_datetime(dfff['Date'].to_numpy())
-#		#shows the array
-#		st.write(z)
-#		#checks the object type
-#		st.write(type(z))
-#		#checks the data type
-#		st.write(z.dtype)
-
-		#dfx = pd.DataFrame({"datetime": pd.to_datetime(np.random.randint(1582800000000000000, 1583500000000000000, 100, dtype=np.int64))})
 		fig, ax = plt.subplots()
 		fd["Date"].astype(np.int64).plot.hist(ax=ax)
 		#Creating side bar so it reflect current data
