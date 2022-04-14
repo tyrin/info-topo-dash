@@ -7714,6 +7714,6 @@ api_datadotcom_dev_guide:datadotcom_keylinksandresources:list_of_links_and_resou
 api_datadotcom_dev_guide:datadotcom_administration:datadotcom_admin_intro,help:resource:datadotcom:datadotcom_eol_disclaimer,1,conref,api_datadotcom_dev_guide,#c1b9b4,Datadotcom Dev Guide API - Datadotcom Admin Intro,help,#936AAB,Help,dev_guides
 api_datadotcom_dev_guide:datadotcom_search:intro:intro_search_intro,help:resource:datadotcom:datadotcom_eol_disclaimer,1,conref,api_datadotcom_dev_guide,#c1b9b4,Datadotcom Dev Guide API - Intro Search Intro,help,#936AAB,Help,dev_guides
 api_datadotcom_dev_guide:datadotcom_search:requests_responses:requests_datacloudcontact,help:resource:datadotcom:datadotcom_eol_disclaimer,1,conref,api_datadotcom_dev_guide,#c1b9b4,Datadotcom Dev Guide API - Requests Datacloudcontact,help,#936AAB,Help,dev_guides
-api_gpl:quickstart:gpl_api_call_the_api,http:__curl_haxx_se_,1,xref,api_gpl,#acf3e4,Global Profile Lookup API - Gpl Api Call The Api,http,firebrick,External Link,dev_guides
-api_gpl:quickstart:gpl_api_quick_start,https:help_salesforce_com_articleView,2,xref,api_gpl,#acf3e4,Global Profile Lookup API - Gpl Api Quick Start,https,maroon,External Link,dev_guides
-api_gpl:quickstart:gpl_api_custom_oauth,https:help_salesforce_com_articleView,1,xref,api_gpl,#acf3e4,Global Profile Lookup API - Gpl Api Custom Oauth,https,maroon,External Link,dev_guides
+api_gpl:quickstart:gpl_api_call_the_api,http:__curl_haxx_se_,1,xref,api_gpl,#acf3e4,Global Profile Lookup API - Gpl Api Call The Api,http,firebrick,External Link,EOL
+api_gpl:quickstart:gpl_api_quick_start,https:help_salesforce_com_articleView,2,xref,api_gpl,#acf3e4,Global Profile Lookup API - Gpl Api Quick Start,https,maroon,External Link,EOL
+api_gpl:quickstart:gpl_api_custom_oauth,https:help_salesforce_com_articleView,1,xref,api_gpl,#acf3e4,Global Profile Lookup API - Gpl Api Custom Oauth,https,maroon,External Link,EOL
