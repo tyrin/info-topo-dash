@@ -5,7 +5,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 def main():
-	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data.csv")
+	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/data.csv")
 
 	figx = px.treemap(df[df['Ref'] == "xref"], path=[px.Constant("all"), 'Group', 'Label'],
 		values='Weight',

@@ -11,24 +11,8 @@ def main():
 	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/data.csv")
 
 #define variables that the customer will input
-	ref = st.sidebar.radio(
-		"Reference Type:",
-		('conref', 'xref', 'all'))
-
-	search = st.sidebar.radio(
-		"Keyword search for:",
-		('labels', 'nodes'))
-	searchterm = st.sidebar.text_input('Enter a keyword', value="", max_chars=25)
-
-	physics = st.sidebar.checkbox('Add physics interactivity?')
-
-	if len(searchterm) == 0:
-		term = 'no'
-	else:
-		term = searchterm
-
 	site= df['Portal'].unique()
-	domain="all"
+	domain=""
 	portal=""
 	portal = st.sidebar.multiselect(
 	'Portal:', site)
@@ -37,50 +21,67 @@ def main():
 		message.text("Select a portal and/or content domain to filter results")
 
 	if (len(portal) > 0) and (len(domain) == 0):
-		message.text("Select a reference type and domain in the sidebar. Keyword filtering is optional.")
-		#df[df['country'] == country]
-		dff = df.loc[df['Portal'].isin(portal)]
-		dfs = dff.sort_values(by='Group')
-		group = dfs['Group'].unique()
-		domains = st.sidebar.multiselect('Content Domain:', group)
-		dfff = df.loc[df['Portal'].isin(portal)]
+		message.text("By default, shows all references for all reference types. Filter for faster rendering of the graph.")
+		#get unique values for content domain
+		dfa = df.loc[df['Portal'].isin(portal)]
+		dfb = dfa.sort_values(by='Group')
+		group = dfb['Group'].unique()
+		domain = st.sidebar.multiselect('Content Domain:', group)
+		# filter data by portal
+		dfc = df.loc[df['Portal'].isin(portal)]
+		#show other filters
+		ref = st.sidebar.radio(
+			"Reference Type:",
+			('all', 'conref', 'xref'))
 
+		search = st.sidebar.radio(
+			"Keyword search for:",
+			('labels', 'nodes'))
+		searchterm = st.sidebar.text_input('Enter a keyword', value="", max_chars=25)
+
+		physics = st.sidebar.checkbox('Add physics interactivity?')
+		frame = st.sidebar.checkbox('Show raw data?')
+
+		if len(searchterm) == 0:
+			term = 'no'
+		else:
+			term = searchterm
+		graphtitle = 'Complex network graph of ' + ref + " references for "+ ' all domain(s) with ' + term + " keywords"
+		complexviz(ref, "all", physics, search, term, dfa, frame)
 	if (len(portal) > 0) and (len(domain) > 0):
-		dfff = df.loc[(df['Portal'].isin(portal)) & (df['Group'].isin(domain))]
-		graphtitle = 'Complex network graph of ' + ref + " references for "+ ','.join(domains) + ' domain(s) with ' + term + " keywords"
+		dfc = df.loc[(df['Portal'].isin(portal)) & (df['Group'].isin(domain))]
+		graphtitle = 'Complex network graph of ' + ref + " references for "+ ','.join(domain) + ' domain(s) with ' + term + " keywords"
 		st.write(graphtitle)
 		#complexviz(title, relationship, domain, physics, search, term)
-		complexviz(ref, domains, physics, search, term)
+		complexviz(ref, domain, physics, search, term, dfc, frame)
 
-def complexviz(ref, domain, physics, search, term):
+def complexviz(ref, domains, physics, search, term, dfc, frame):
+    message = st.empty()
     # set the network options
     ccx_net = Network(height='750px', width='750', bgcolor='white', font_color='blue', heading="")
 
-    #read inputfile
-    df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data.csv")
-    #set outputfile
-    # filter by relationship and domain
-    if ref == 'all' and 'all' in domain:
-        dff = df
+    # filter by relationship and domains
+    if ref == 'all' and 'all' in domains:
+        dff = dfc
 
     elif  ref=='all':
-        dff = df.loc[df['Group'].isin(domain)]
+        dff = dfc.loc[dfc['Group'].isin(domains)]
 
-    elif domain=='all':
-        dff = df.loc[df['Ref'] == ref]
+    elif domains=='all':
+        dff = dfc.loc[dfc['Ref'] == ref]
 
     else:
-        dfa = df.loc[(df['Group'].isin(domain)) | (df['TargetGroup'].isin(domain))]
-        dff = dfa.loc[dfa['Ref'] == ref]
+        dfd = dfc.loc[(dfc['Group'].isin(domain)) | (dfc['TargetGroup'].isin(domain))]
+        dff = dfd.loc[dfc['Ref'] == ref]
 # keyword filtering
     if term == 'no':
         dfff = dff
 
     elif  search=='label':
-        dfff = dff.loc[(df['Label'].str.contains(term)) | (df['TargetLabel'].str.contains(term))]
+        dfff = dff.loc[(dff['Label'].str.contains(term)) | (dff['TargetLabel'].str.contains(term))]
 
     else:
-        dfff = dff.loc[(df['Source'].str.contains(term)) | (df['Target'].str.contains(term))]
+        dfff = dff.loc[(dff['Source'].str.contains(term)) | (dff['Target'].str.contains(term))]
 
     sources = dfff['Source']
     targets = dfff['Target']
@@ -122,7 +123,14 @@ def complexviz(ref, domain, physics, search, term):
         ccx_net.show_buttons(filter_=['physics'])
         ccx_net.show("complexdata.html")
     else:
+        message = st.empty()
         ccx_net.show("complexdata.html")
     HtmlFile = open("complexdata.html", 'r', encoding='utf-8')
     source_code = HtmlFile.read()
-    components.html(source_code, height = 1200,width=900)
+    if physics == 'True':
+        components.html(source_code, height = 1200,width=900)
+    else:
+        components.html(source_code, height = 775,width=900)
+    if frame:
+        st.dataframe(dfc)
+

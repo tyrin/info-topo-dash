@@ -21,7 +21,7 @@ def main():
 		message.text("Select a portal")
 
 	if (len(portal) > 0) and (len(domain) == 0):
-		message.text("Select a domain")
+		message = st.empty()
 		#df[df['country'] == country]
 		dff = df.loc[df['Portal'].isin(portal)]
 		dfs = dff.sort_values(by='Group')
@@ -36,10 +36,10 @@ def main():
 		dfff = df.loc[(df['Portal'].isin(portal)) & (df['Group'].isin(domain))]
 		fd = dfff.filter(items=['Date', 'Node'])
 		fd['Date'] = fd['Date'].astype('datetime64')
-#Using the below makes causes an error in the streamlit dataframe call, so I have to use the above.
+#Using the below  causes an error in the streamlit dataframe call even though it should format the dates better, so I have to use the above.
 #fd['Date']= pd.to_datetime(df['Date'])
 
-		fig, ax = plt.subplots()
+		fig, ax = plt.subplots(figsize=(7,3))
 		fd["Date"].astype(np.int64).plot.hist(ax=ax)
 		#Creating side bar so it reflect current data
 		#min_value = fd.index.min()
@@ -50,8 +50,10 @@ def main():
 		#st.sidebar.write("Start time:", fd.index.min())
 
 		labels = ax.get_xticks().tolist()
+		ax.set_ylabel('# of Files')
 		labels = pd.to_datetime(labels)
 		ax.set_xticklabels(labels, rotation=90)
+		#ax.legend()
 
 		st.pyplot(fig, use_container_width=True)
 		st.dataframe(fd)
