@@ -13,7 +13,7 @@ def convert_df(frame):
 def showresults(frame, file, physics):
 	HtmlFile = open("data.html", 'r', encoding='utf-8')
 	source_code = HtmlFile.read()
-	if physics == 'True':
+	if physics:
 		components.html(source_code, height = 1200,width=900)
 	else:
 		components.html(source_code, height = 775,width=900)
