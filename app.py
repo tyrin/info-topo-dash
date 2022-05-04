@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from pyvis.network import Network
 import numpy as np
 import netviz
+import complex2
 import complex
 import hist
 import Dist
@@ -104,9 +105,9 @@ def comparison_page():
 
 def complex_page():
 	st.subheader("Complex Questions")
-	st.write("This graph is complex and may take longer to load. If you encounter a blank screen, refresh your browser and try again.")
+	#st.write("This graph is complex and may take longer to load. If you encounter a blank screen, refresh your browser and try again.")
 	ref = 'choose'
-	complex.main()
+	complex2.main()
 
 def test_page():
 	st.subheader("Beta")
