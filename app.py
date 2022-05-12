@@ -13,6 +13,7 @@ import scatter2
 import treemap2
 import stackedbar
 import pandas as pd
+import urllib
 st.set_page_config(layout="wide")
 
 def main():
@@ -20,7 +21,7 @@ def main():
 #	with readme_text:
 #		st.write("my explanation")
 #add two expands, one for help and one for resources
-	st.header("CCX Data Visualization")
+	st.header("Writer's Dashboard")
 	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/TotalOrganicKeywords-Jan2021vsJan2022.csv")
 	app_mode = st.sidebar.selectbox("Check your content for:",
 		['<select>', "Shared Content", "Linked Content", "Relevance", "Freshness", "Comparison", "Complex Questions", "Beta"])
@@ -50,20 +51,34 @@ def main():
 		test_page()
 
 # THIS IS THE SECTION THAT CONTAINS UTILITY FUNCTIONS
-
+# Download a single file and make its content available as a string.
+@st.cache(show_spinner=False)
+def get_file_content_as_string(path):
+	url = 'https://raw.githubusercontent.com/tyrin/info-topo-dash/master/markdown/' + path
+	response = urllib.request.urlopen(url)
+	return response.read().decode("utf-8")
 # THIS IS THE SECTION THAT RENDERS EACH PAGE
 def home():
 	st.sidebar.success("Select a visualization in the sidebar.")
+
+	# Render the readme as markdown using st.markdown.
 	with st.expander("How Do I Use the Writer's Dashboard?"):
-		st.write("""
-			Information about usage.
-		""")
+		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
+		video_bytes = video_file.read()
+		st.video(video_bytes)
+		readme_text = st.markdown(get_file_content_as_string("instructions.md"))
 	with st.expander("Resources"):
 		st.write("""
 			Resource Information
 		""")
 
 def shared_content_page():
+	# Render the readme as markdown using st.markdown.
+	with st.expander("How Do I Use a Network Diagram?"):
+		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
+		video_bytes = video_file.read()
+		st.video(video_bytes)
+		#readme_text = st.markdown(get_file_content_as_string("instructions.md"))
 	st.subheader("Shared Content")
 	ref='conref'
 	#  clist = df['country'].unique()
@@ -71,6 +86,12 @@ def shared_content_page():
 	netviz.main(ref)
 
 def linked_content_page():
+	# Render the readme as markdown using st.markdown.
+	with st.expander("How Do I Use the Writer's Dashboard?"):
+		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
+		video_bytes = video_file.read()
+		st.video(video_bytes)
+		readme_text = st.markdown(get_file_content_as_string("instructions.md"))
 	st.subheader("Linked Content")
 	ref = 'xref'
 	netviz.main(ref)
