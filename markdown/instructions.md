@@ -1,5 +1,3 @@
-# Using the Writer’s Dash
-
 ## **Sidebar:**
 
 * **Portal**: Lists the folder directly under `xmlsource` in Perforce.  For help and dev guides, this corresponds to the portal where the content domain bundles are built. For example, the `/xmlsource/dev_guides/` folder contains content built to developer.salesforce.com.
