@@ -1,6 +1,3 @@
-# Resources for Content Developers
-
-
 ## Useful Stuff
 
 Here are a few resources you might find useful:
