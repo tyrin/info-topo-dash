@@ -1,2 +1,11 @@
-# Metadata
-[Salesforce Developer Survey](https://docs.google.com/presentation/d/1dqZnPIpPqUsNMky7hB_5tuxeIYDQ47PXikOFH1UjVU8/edit#slide=id.g6b8045900b_102_953)
+# Resources for Content Developers
+
+
+## Useful Stuff
+Here are a few resources you might find useful:
+[Extract Keywords from Text] (https://share.streamlit.io/streamlit/example-app-bert-keyword-extractor/main/app.py)
+
+## Fun Stuff
+Here's a couple of visualizations that inspired me. Hopefully they'll make you smile too!
+http://stars.chromeexperiments.com/
+https://gource.io/
