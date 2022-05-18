@@ -1,7 +1,5 @@
 # Using the Writer’s Dash
 
-Note: if you are using the writers dash for migration purposes, to see what
-
 ## **Sidebar:**
 
 * **Portal**: Lists the folder directly under `xmlsource` in Perforce.  For help and dev guides, this corresponds to the portal where the content domain bundles are built. For example, the `/xmlsource/dev_guides/` folder contains content built to developer.salesforce.com.
@@ -10,30 +8,32 @@ Note: if you are using the writers dash for migration purposes, to see what
 
 ## Visualizations:
 
-* Shared Content:  Shows the conrefs for bundle folder(s). Use this to examine how you are sharing content. However, to identify who is referencing you across trailhead and help, use the Complex Questions visualization.
-* Linked Content:  Shows the xrefs for a bundle folder(s). Use this to examine how your content is connected. However, to identify who is referencing you across trailhead and help, use the Complex Questions visualization.
-* Relevance:
-    * Blended Rank: Shows the search volume of terms, their position in Google search results, and the page customers were ultimately directed to. Use this to identify opportunities for SEO improvement.
-    * Blended Rank Change: Shows the change in position for where a keyword is returned in Google search results. Use to see new terms and identify terms that are no longer being used as frequently.
-* Freshness:  Allows you to view the freshness of files in a folder. This is the last time the file was modified on the client, before it was submitted to the Perforce server. So this is the last time a person touched the file. For information about multiple domains, see the Comparison menu Portal Freshness visualization.
-* Comparison:
-    * Reference Treemap: Shows the relative number of conrefs or xrefs in a portal. Gives you a general idea of the difficulty of migrating content.
-    * Portal Freshness: Shows the last modified date for files across a portal.
-* Complex Questions:  Allows you to filter by portal, content domain, and terms in node labels (file and folder name) or node ID (folder structure).
+* [Shared Content](#shared-content-and-linked-content):  Shows the conrefs for bundle folder(s) in Perforce. For example, the `/xmlsource/dev_guides/` folder. Use this to examine how you are sharing content.
+* [Linked Content](#shared-content-and-linked-content):  Shows the xrefs for a bundle folder(s).
+* [Customer Search](#customer-search):
+   * [Blended Rank](#blended-rank): Shows the search volume of terms, their position in Google search results, and the page customers were ultimately directed to. Use this to identify opportunities for SEO improvement.
+   * [Blended Rank Change](#blended-rank-change): Shows the change in position for where a keyword is returned in Google search results. Use to see new terms and identify terms that are no longer being used as frequently.
+   * [Combined Keywords](#combined-keywords): Shows keyword results from both H&T and developer.salesforce.com. Pick a general keyword to the different things that admins and developers are looking for.
+* [Freshness](#freshness):  Allows you to view the freshness of files in a folder. This is the last time the file was modified on the client, before it was submitted to the Perforce server. So this is the last time a person touched the file. For information about multiple domains, see the **Comparison** menu Portal Freshness visualization.
+* [Comparison](#comparison):
+   * [Reference Treemap](#reference-treemap): Shows the relative number of conrefs or xrefs in a portal. Gives you a general idea of the difficulty of migrating content.
+   * [Portal Freshness](#portal-fFreshness): Shows the last modified date for files across a portal.
+* [Complex Questions](#complex-questions):  Allows you to filter by portal, content domain, and terms in node labels (file and folder name) or node ID (folder structure).
+
 
 ### Shared Content and Linked Content
 
 These are both network visualizations which show the references between two files. Shared content shows conrefs and Linked Content shows xrefs.
 
-*Circle = Node*
+#### Circle = Node
 A circle is a node in the visualization. Each node is a separate Perforce file. The label under the node shows the parent folder and the file name. All nodes that are the same color are in the same parent folder.
 
-*Line*
+#### Line
 The lines between nodes are a reference from one node to another. This is either a conref or an xref.
 The line color is the color of the node that is “reaching out” for the reference. For example, the Bulk V2 API - Query Get All Jobs file has a conref to a reference folder. The link is the same color as the Bulk V2 API node. Note: in some cases the line color is similar, due to a limited number of colors, but it is never identical. Zoom in and check the border color of the node to determine the line color.
 The line thickness indicates the number of references between two files. If you want to see the exact number of references, check the Weight column in the data table under the visualization.
 
-*Data Table*
+#### Data Table
 The data table shown contains only the data shown in the visualization.
 
 * Source - node ID for the file that that contains the xref or conref. The node ID is a concatenation of the file path for the file in Perforce and can be used to locate the file.
@@ -57,7 +57,7 @@ Use these visualizations to:
 
 
 
-### Relevance
+### Customer Search
 
 #### Blended Rank
 
@@ -76,8 +76,7 @@ Shows the last date that a person changed a file before it was submitted to Perf
 
 There are a few visualizations here:
 
-####
-Reference Treemap
+#### Reference Treemap
 
 Shows the relative number of conrefs and xrefs per file and folder in perforce. Use this visualization to understand the scope of changes required for migration and the
 
