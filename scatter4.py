@@ -15,29 +15,19 @@ def filterterm(df, scatterterm, scattersearch):
 	if scatterterm == 'no':
 		message.text("Select a visualization and enter a search term.")
 		dff = df
-		st.dataframe(dff)
+		#st.dataframe(dff)
 	elif  scattersearch=='volume':
 		dff = df.loc[(df['Keyword'].str.contains(scatterterm))]
 		# changing the Volume column from text to numeric so we can sort and use a color scale
-		if dff['Keyword'].isnull().values.any():
-			return dff
-		else:
-			dff['Volume'] = pd.to_numeric(dff['Volume'])
-
+		dff['Volume'] = pd.to_numeric(dff['Volume'])
 	elif  scattersearch=='page':
 		dff = df.loc[(df['Page'].str.contains(scatterterm))]
-		if dff['Keyword'].isnull().values.any():
-			return dff
-		else:
-			#add a new column with the text for hover
-			dff['CustomerSearch'] = df['Keyword'] + "<br>Page: " + df['Page']
-			#st.dataframe(dff)
+		#add a new column with the text for hover
+		dff['CustomerSearch'] = df['Keyword'] + "<br>Page: " + df['Page']
+		#st.dataframe(dff)
 	else:
 		dff = df.loc[(df['Keyword'].str.contains(scatterterm))]
-		if dff['Keyword'].isnull().values.any():
-			return dff
-		else:
-			dff['CustomerSearch'] = df['Keyword'] + "<br>Page: " + df['Page']
+		dff['CustomerSearch'] = df['Keyword'] + "<br>Page: " + df['Page']
 	# if the term has no results, tell them and use the full data frame
 	return dff
 
@@ -56,11 +46,12 @@ def matscatterplot3(scatterterm, scattersearch):
 
 	dfbr = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/TotalOrganicKeywords-Jan2021vsJan2022.csv")
 	dff = filterterm(dfbr, scatterterm, scattersearch)
-	if dff.empty:
+	termresults = "yes"
+	if dff.isnull().values.any():
 		message.text("No results for your term. Check the data below to find a valid keyword.")
-
 		st.dataframe(dfbr)
-	elif scatterterm != 'no':
+		termresults = "no"
+	elif scatterterm != 'no' or termresults !="no":
 		if scattertype == "Blended Rank":
 			fig = px.scatter(dff, x="Blended Rank", y="Search Volume",
 				text="CustomerSearch",
@@ -100,7 +91,6 @@ def matscatterplot3(scatterterm, scattersearch):
 			#fig = px.bar(df1, x=df1.time, y=df2.market, color=df1.sales)
 
 
-	if scatterterm != 'no':
 		fig.write_html("scatter.html")
 		HtmlFile = open("scatter.html", 'r', encoding='utf-8')
 		source_code = HtmlFile.read()
