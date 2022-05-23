@@ -52,7 +52,7 @@ def matscatterplot3(scatterterm, scattersearch):
 		st.dataframe(dfbr)
 		termresults = "no"
 	elif scatterterm != "no" or termresults !="no":
-		st.write("My term is " + scatterterm)
+		#st.write("Your term is " + scatterterm)
 		if scattertype == "Blended Rank":
 			fig = px.scatter(dff, x="Blended Rank", y="Search Volume",
 				text="CustomerSearch",
