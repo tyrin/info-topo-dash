@@ -1,6 +1,6 @@
 # FAQ
 
-## How do I tell what content will break other writer's content when I migrate?
+## How do I tell what content will break other writers' content when I migrate?
 
 Select the top-level and ditamap folder for your content. You can quickly see if there are other people conref'ing to your content by the color of the lines. Any lines that aren't the color of your nodes are conrefs in someone else's content that you will break.
 
@@ -8,4 +8,4 @@ For a list of affected files, download the data table below the visualization. T
 
 # Visualizations
 
-**Linked Content:** Shows the xrefs for a bundle folder(s).
+**Shared Content:** Shows the xrefs for a bundle folder(s).
