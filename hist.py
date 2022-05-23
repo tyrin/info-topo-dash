@@ -11,7 +11,8 @@ def main():
 	df = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/freshdata.csv")
 
 #define variables that the customer will input
-	site= df['Portal'].unique()
+	sitelist= df['Portal'].unique()
+	site = np.sort(sitelist)
 	domain=""
 	portal=""
 	portal = st.sidebar.multiselect(
