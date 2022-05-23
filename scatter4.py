@@ -47,11 +47,12 @@ def matscatterplot3(scatterterm, scattersearch):
 	dfbr = pd.read_csv("https://raw.githubusercontent.com/tyrin/info-topo-dash/master/data/TotalOrganicKeywords-Jan2021vsJan2022.csv")
 	dff = filterterm(dfbr, scatterterm, scattersearch)
 	termresults = "yes"
-	if dff.isnull().values.any():
+	if dff.isnull().values.any() or scatterterm == "no":
 		message.text("No results for your term. Check the data below to find a valid keyword.")
 		st.dataframe(dfbr)
 		termresults = "no"
-	elif scatterterm != 'no' or termresults !="no":
+	elif scatterterm != "no" or termresults !="no":
+		st.write("My term is " + scatterterm)
 		if scattertype == "Blended Rank":
 			fig = px.scatter(dff, x="Blended Rank", y="Search Volume",
 				text="CustomerSearch",
@@ -90,7 +91,7 @@ def matscatterplot3(scatterterm, scattersearch):
 			#fig = px.bar(dff, x="Keyword", y=dff['Volume'].astype(int), color=dff['Volume'].astype(int), title="Combined Keywords")
 			#fig = px.bar(df1, x=df1.time, y=df2.market, color=df1.sales)
 
-
+	#if scatterterm != "no" or termresults !="no"
 		fig.write_html("scatter.html")
 		HtmlFile = open("scatter.html", 'r', encoding='utf-8')
 		source_code = HtmlFile.read()
