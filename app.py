@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from pyvis.network import Network
 import numpy as np
 import netviz
+import color
 import complex2
 import hist
 import scatter4
@@ -69,7 +70,7 @@ def home():
 def shared_content_page():
 	# Render the readme as markdown using st.markdown.
 	with st.expander("How Do I Use a Network Diagram?"):
-		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
+		video_file = open('NetworkVizHelp.mp4', 'rb')
 		video_bytes = video_file.read()
 		st.video(video_bytes)
 		readme_text = st.markdown(get_file_content_as_string("sharedcontent.md"))
@@ -82,7 +83,7 @@ def shared_content_page():
 def linked_content_page():
 	# Render the readme as markdown using st.markdown.
 	with st.expander("How Do I Use a Network Diagram?"):
-		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
+		video_file = open('NetworkVizHelp.mp4', 'rb')
 		video_bytes = video_file.read()
 		st.video(video_bytes)
 		readme_text = st.markdown(get_file_content_as_string("linkedcontent.md"))
@@ -92,10 +93,10 @@ def linked_content_page():
 
 def seo_page(df):
 	# Render the readme as markdown using st.markdown.
-	with st.expander("How Do I Use a Network Diagram?"):
-#		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
-#		video_bytes = video_file.read()
-#		st.video(video_bytes)
+	with st.expander("How Do I Use the Customer Search SEO Diagram?"):
+		video_file = open('SEOVizHelp.mp4', 'rb')
+		video_bytes = video_file.read()
+		st.video(video_bytes)
 		readme_text = st.markdown(get_file_content_as_string("customersearch.md"))
 	st.subheader("Customer Search and SEO")
 	scattersearch = st.sidebar.radio(
@@ -112,7 +113,7 @@ def seo_page(df):
 def freshness_page():
 	# Render the readme as markdown using st.markdown.
 	with st.expander("How Do I Use a Freshness Diagram?"):
-#		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
+#		video_file = open('NetworkVizHelp.mp4', 'rb')
 #		video_bytes = video_file.read()
 #		st.video(video_bytes)
 		readme_text = st.markdown(get_file_content_as_string("customersearch.md"))
@@ -123,10 +124,10 @@ def freshness_page():
 def comparison_page():
 	# Render the readme as markdown using st.markdown.
 	with st.expander("How Do I Use the Comparison Diagrams?"):
-#		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
-#		video_bytes = video_file.read()
-#		st.video(video_bytes)
-		readme_text = st.markdown(get_file_content_as_string("customersearch.md"))
+		video_file = open('ComparisonVizHelp.mp4', 'rb')
+		video_bytes = video_file.read()
+		st.video(video_bytes)
+		readme_text = st.markdown(get_file_content_as_string("comparison.md"))
 	st.subheader("Comparison")
 	comparetype = st.sidebar.radio(
 		"Select a visualization",
@@ -143,7 +144,7 @@ def complex_page():
 #		video_file = open('NetworkGraphHelpVid.mp4', 'rb')
 #		video_bytes = video_file.read()
 #		st.video(video_bytes)
-		readme_text = st.markdown(get_file_content_as_string("customersearch.md"))
+		readme_text = st.markdown(get_file_content_as_string("complexquestions.md"))
 	st.subheader("Complex Questions")
 	#st.write("This graph is complex and may take longer to load. If you encounter a blank screen, refresh your browser and try again.")
 	ref = 'choose'
@@ -151,7 +152,8 @@ def complex_page():
 
 def test_page():
 	st.subheader("Beta")
-	st.write("No visualizations are currently in beta.")
+	st.write("Testing color scales.")
+	color.main()
 	#barplotly.mainbar()
 #Unique list of domains...?
 #dlist = df['country'].unique()
