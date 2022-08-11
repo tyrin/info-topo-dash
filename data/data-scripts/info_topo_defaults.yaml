@@ -1,0 +1,556 @@
+# info_topo_mod_02_defaults.yaml
+#---
+#
+name: documentation analysis defaults
+description: The default values supplied to the info_topo_mod_02.py script
+# These are defaults only, and can all be changed in route to the
+# operation of the info_topo_mod_02.py file, using the command line flags. To
+# see the command line flags, run info_topo_mod_02.py -h
+
+informational:
+    display readme: no
+
+diagnostic:
+    display links regexes: no
+    verbose: 0
+
+operational:
+    root dir: /Users/mgipson/info_topo/xmlsource
+    #rootdir: /Users/mgipson/info_topo/apex
+    key width: 9
+    # The choices for path root are: "relative" or "absolute"
+    path root: relative
+    suppress the analysis: no
+    node id element delimiter: >-
+        :
+    node id area delimiter: >-
+        +
+    output non-edge nodes: no
+    output json: no
+    output csv: no
+    output pydot: no
+    output networkx: no
+    # alternative pydot output file formats are: .svg .png
+    pydot format: .svg
+
+    csv titles: "Source,Target,Weight,Ref,Group,Color,Label,TargetGroup,TargetColor,TargetLabel,TargetURL,Portal"
+    # The f-string below is evaluated for each line of the CSV file.
+    # Maintain escaped double quotes (\") in csv format around any value that might possibly hold commas.
+    # Anything with a title value: labels and node ids.
+    # It should correspond to:
+    # Source, Target, Weight, Ref, Group, Color, Label, TargetGroup, TargetColor, TargetLabel, TargetUrl
+    csv format: f"\"{source['node id']}\",\"{target['node id']}\",{target['weight']},{target['reftype'][0]},{source['content domain']},{source['color']},\"{source['label']}\",{target['content domain']},{target['color']},\"{target['label']}\",{target['url']},\"{source['portal']}\""
+
+# The following section is treated as a "quasi-table": not a real table,
+# but maintained to look like one for readability and ease of maintenance.
+# The main script does not know about the multiple columns. It ingests the
+# values in the normal way for YAML, entering with the value on the left
+# of the colon (":"), and receiving the full remainder on the right of the
+# colon of the line. The Python YAML library automatically trims leading
+# spaces of the data.  The code then splits the data on
+# multiple space characters. In maintaining this section of
+# this file, you should be aware that no tabs are permitted. Optionally use
+# as many space characters as
+# necessary to align values into discrete column. Use
+# at least 2 spaces between discrete items to trigger the split between
+# them. Discrete values can have single
+# spaces internally. The purpose of this section is to provide user-alterable
+# name replacements for the labels.re.sub(r'^\+(\#[0-9a-fA-F]{0,6})$', r'\1', group_lookup[record]['color']i
+# The column headers in the table given here are the "group (as the left-index), title first part, cloud and color.
+
+group lookup:
+    # Content Domain                                        Label (first part, before "-")                          Cloud            Color
+    resource:                                               Resource File                                           internal         Cyan      
+    resources:                                              Resource File                                           internal         Cyan      
+    http:                                                   External Link                                           external         Blue      
+    https:                                                  External Link                                           external         Cyan      
+    _general:                                               General Release Notes                                   salesforce       \#fedd00  
+    _intro:                                                 Intro Release Notes                                     salesforce       \#ffd700  
+    _summary:                                               Summary Release Notes                                   salesforce       \#fe5000  
+    accessibility:                                          Accessibility                                           salesforce       \#f9423a  
+    accounts:                                               Accounts                                                salesforce       \#ef3340  
+    accountteam:                                            Accountteam                                             salesforce       \#ce0058  
+    activities:                                             Activities                                              salesforce       \#e10098  
+    administration:                                         Administration                                          salesforce       \#bb29bb  
+    advanced_pdf_pilot:                                     Advanced PDF Pilot                                      salesforce       \#440099  
+    agile:                                                  Agile                                                   salesforce       \#10069f  
+    ajax:                                                   Ajax                                                    platform         \#001489  
+    analytics:                                              Analytics                                               salesforce       \#0085ca  
+    anywhere:                                               Anywhere                                                salesforce       \#00ab84  
+    apex:                                                   Apex                                                    platform         \#2d2926  
+    api:                                                    API                                                     platform         \#f2f0a1  
+    api_action:                                             Action API                                              platform         \#fcaebb  
+    api_analytics:                                          Analytics API                                           platform         \#f1b2dc  
+    api_asynch:                                             Asynch API                                              platform         \#bf9bde  
+    api_bulk_v2:                                            Bulk v2 API                                             platform         \#74d1ea  
+    api_c360a:                                              C360a API                                               platform         \#9de7d7  
+    api_console:                                            Console API                                             salesforce       \#9e978e  
+    api_cti:                                                CTI API                                                 service          \#009ace  
+    api_datadotcom_dev_guide:                               Datadotcom Dev Guide API                                platform         \#44d62c  
+    api_datadotcom_match:                                   Datadotcom Match API                                    platform         \#ffe900  
+    api_datadotcom_search:                                  Datadotcom Search API                                   platform         \#ffaa4d  
+    api_df:                                                 Data Federation API                                     platform         \#ff7276  
+    api_dj:                                                 Data Jobs API                                           platform         \#ff3eb5  
+    api_gateway:                                            Gateway API                                             platform         \#ea27c2  
+    api_gpl:                                                GPL API                                                 platform         \#84754e  
+    api_iot:                                                IoT API                                                 platform         \#85714d  
+    api_meta:                                               Meta API                                                platform         \#866d4b  
+    api_rest:                                               Rest API                                                platform         \#8b6f4e  
+    api_rest_encryption:                                    Rest Encryption API                                     platform         \#87674f  
+    api_streaming:                                          Streaming API                                           platform         \#8b634b  
+    api_tooling:                                            Tooling API                                             platform         \#8a8d8f  
+    api_ui:                                                 Ui API                                                  platform         \#ffd900  
+    app_analytics:                                          App Analytics                                           salesforce       \#ff5e00  
+    appexchange:                                            Appexchange                                             platform         \#f93822  
+    appexchange_install_guide:                              Appexchange Install Guide                               platform         \#ce0056  
+    approvals:                                              Approvals                                               salesforce       \#d62598  
+    appx_dev:                                               Appx Dev                                                salesforce       \#4e008e  
+    async_query:                                            Async Query                                             platform         \#00239c  
+    aura:                                                   Aura                                                    platform         \#0084ca  
+    automate:                                               Automate                                                salesforce       \#00b08b  
+    b2b_commerce:                                           B2B Commerce                                            commerce         \#222223  
+    b2b_commerce_rn:                                        B2B Commerce RN                                         commerce         \#f6eb61  
+    b2b_commerce_seo:                                       B2B Commerce SEO                                        commerce         \#f7ea48  
+    b2c_commerce:                                           B2c Commerce                                            commerce         \#fce300  
+    backup_restore:                                         Backup Restore                                          salesforce       \#c5a900  
+    bi:                                                     Bi                                                      salesforce       \#af9800  
+    big_object:                                             Big Object                                              salesforce       \#897a27  
+    blng:                                                   Blng                                                    salesforce       \#f5e1a4  
+    bot_cookbook:                                           Bot Cookbook                                            salesforce       \#ecd898  
+    bots:                                                   Bots                                                    salesforce       \#eed484  
+    bundle_automation:                                      Automation                                              salesforce       \#f4da40  
+    bundle_basics:                                          Basics                                                  salesforce       \#f2cd00  
+    bundle_cross_cloud_integration:                         Cross Cloud Integration                                 salesforce       \#f1c400  
+    bundle_customer360:                                     Customer 360                                            salesforce       \#cba052  
+    bundle_customer360_release_notes:                       Customer 360 Release Notes                              salesforce       \#f9e547  
+    bundle_data_federation:                                 Data Federation                                         salesforce       \#fbe122  
+    bundle_data_protection:                                 Data Protection                                         salesforce       \#fedb00  
+    bundle_deploy_sandboxes:                                Deploy Sandboxes                                        salesforce       \#ffd100  
+    bundle_devops_center:                                   Devops Center                                           salesforce       \#daaa00  
+    bundle_essentials:                                      Essentials                                              salesforce       \#aa8a00  
+    bundle_extend_click:                                    Extend Click                                            salesforce       \#9c8412  
+    bundle_extend_code:                                     Extend Code                                             salesforce       \#fae053  
+    bundle_identity:                                        Identity                                                platform         \#fbdd40  
+    bundle_lex:                                             Lex                                                     salesforce       \#fdda24  
+    bundle_mc_data_management_and_analytics:                Marketing Cloud Data Management and Analytics           marketing cloud  \#ffcd00  
+    bundle_mc_implementation_guides:                        Marketing Cloud Implementation Guides                   marketing cloud  \#c99700  
+    bundle_mfa:                                             Mfa                                                     salesforce       \#ac8400  
+    bundle_miaw:                                            Miaw                                                    salesforce       \#897322  
+    bundle_pardot:                                          Pardot                                                  marketing cloud  \#f3dd6d  
+    bundle_sales:                                           Sales                                                   sales            \#f3d54e  
+    bundle_salesforce_app:                                  Salesforce App                                          salesforce       \#f3d03e  
+    bundle_salesforce_apps_for_slack_rns:                   Salesforce Apps for Slack RNS                           salesforce       \#f2a900  
+    bundle_salesforce_maps:                                 Salesforce Maps                                         salesforce       \#cc8a00  
+    bundle_setup:                                           Setup                                                   platform         \#a07400  
+    bundle_slack_apps:                                      Slack Apps                                              salesforce       \#6c571b  
+    bundle_social_studio:                                   Social Studio                                           marketing cloud  \#f8e08e  
+    bundle_solution_kits:                                   Solution Kits                                           salesforce       \#fbd872  
+    bundle_support:                                         Support                                                 salesforce       \#ffc845  
+    bundle_workdotcom:                                      Workdotcom                                              salesforce       \#ffb81c  
+    bundle_workdotcom_rn:                                   Workdotcom Rn                                           salesforce       \#c69214  
+    c360:                                                   C360                                                    salesforce       \#ad841f  
+    c360guide_banking:                                      C360 Guide Banking                                      salesforce       \#886b25  
+    c360guide_consumer_goods:                               C360 Guide Consumer Goods                               salesforce       \#fbdb65  
+    c360guide_healthcare_payer:                             C360 Guide Healthcare Payer                             salesforce       \#fdd757  
+    caf:                                                    Caf                                                     salesforce       \#fed141  
+    call_coaching:                                          Call Coaching                                           salesforce       \#ffc72c  
+    campaigns:                                              Campaigns                                               salesforce       \#eaaa00  
+    case_classification:                                    Case Classification                                     salesforce       \#b58500  
+    case_feed:                                              Case Feed                                               salesforce       \#9a7611  
+    case_interaction:                                       Case Interaction                                        salesforce       \#ffc600  
+    cases:                                                  Cases                                                   salesforce       \#ffb500  
+    caseteam:                                               Case Team                                               salesforce       \#d19000  
+    categories:                                             Categories                                              salesforce       \#b47e00  
+    change_data_capture:                                    Change Data Capture                                     platform         \#73531d  
+    change_management:                                      Change Management                                       platform         \#5a4522  
+    channel_object_linking:                                 Channel Object Linking                                  salesforce       \#4b3d2a  
+    chat:                                                   Chat                                                    platform         \#d29f13  
+    chat_rest:                                              Chat Rest                                               platform         \#b78b20  
+    chatter:                                                Chatter                                                 platform         \#9f7d23  
+    chatter_connect:                                        Chatter Connect                                         platform         \#967126  
+    clients:                                                Clients                                                 salesforce       \#8f6a2a  
+    cma:                                                    CMA                                                     salesforce       \#7d622e  
+    cms:                                                    CMS                                                     platform         \#6c5d34  
+    coa:                                                    COA                                                     salesforce       \#fdd26e  
+    code:                                                   Code                                                    salesforce       \#ffc658  
+    collaboration:                                          Collaboration                                           salesforce       \#ffbf3f  
+    commerce:                                               Commerce                                                commerce         \#ffa300  
+    communities_dev:                                        Communities Dev                                         community        \#de7c00  
+    communities_managers_guide:                             Communities Managers Guide                              community        \#af6d04  
+    community_case_feed:                                    Community Case Feed                                     community        \#74531c  
+    community_designer:                                     Community Designer                                      community        \#fdd086  
+    community_identity_templates:                           Community Identity Templates                            community        \#ffc56e  
+    community_managed_content:                              Community Managed Content                               community        \#ffb549  
+    console2:                                               Console2                                                salesforce       \#ff9e1b  
+    contact_request:                                        Contact Request                                         salesforce       \#d57800  
+    contactroles:                                           Contactroles                                            salesforce       \#996017  
+    contacts:                                               Contacts                                                salesforce       \#6e4c1e  
+    content:                                                Content                                                 platform         \#f2c75c  
+    cpq:                                                    CPQ                                                     salesforce       \#f1be48  
+    cti:                                                    CTI                                                     salesforce       \#f1b434  
+    custom_ai:                                              Custom AI                                               salesforce       \#ed8b00  
+    customer_portal:                                        Customer Portal                                         salesforce       \#cf7f00  
+    customer_portal_guide:                                  Customer Portal Guide                                   salesforce       \#a76d11  
+    customer360_aud:                                        Customer 360 Audiences                                  salesforce       \#715c2a  
+    customhelp:                                             Custom Help                                             salesforce       \#f6be00  
+    customize:                                              Customize                                               salesforce       \#f0b323  
+    customizeactivities:                                    Customize Activities                                    salesforce       \#fead77  
+    customizeleads:                                         Customize Leads                                         salesforce       \#e6a65d  
+    customizesales:                                         Customize Sales                                         salesforce       \#d38235  
+    customizesupport:                                       Customize Support                                       salesforce       \#dc8633  
+    customlabels:                                           Customize Labels                                        salesforce       \#c16c18  
+    custommetadatatypes:                                    Customize Metadatatypes                                 salesforce       \#bd9b60  
+    customsettings:                                         Customize Settings                                      salesforce       \#d69a2d  
+    customviews:                                            Customize Views                                         salesforce       \#db8a06  
+    daas:                                                   DAAS                                                    platform         \#cd7925  
+    dashboard:                                              Dashboard                                               platform         \#ad6433  
+    dashboard_samples:                                      Dashboard Samples                                       platform         \#89532f  
+    dashboards:                                             Dashboards                                              platform         \#775135  
+    data:                                                   Data                                                    platform         \#d78825  
+    data_accessibility_architecture:                        Data Accessibility Architecture                         salesforce       \#d3832b  
+    data_classification:                                    Data Classification                                     salesforce       \#c67d30  
+    data_dot_com:                                           Data Dot Com                                            platform         \#b67233  
+    data_dot_com_clean:                                     Data Dot Com Clean                                      salesforce       \#a7662b  
+    data_loader:                                            Data Loader                                             salesforce       \#9e6a38  
+    data_pipelines:                                         Data Pipelines                                          salesforce       \#835d32  
+    data_quality:                                           Data Quality                                            salesforce       \#fcc89b  
+    datorama:                                               Datorama                                                salesforce       \#fdbe87  
+    deploy:                                                 Deploy                                                  salesforce       \#fdaa63  
+    dev_guides:                                             Dev Guides                                              platform         \#f68d2e  
+    dev_lifecycle:                                          Dev Lifecycle                                           salesforce       \#ea7600  
+    developer:                                              Developer                                               platform         \#d45d00  
+    devops_center:                                          Devops Center                                           salesforce       \#be4d00  
+    distribution:                                           Distribution                                            salesforce       \#fecb8b  
+    distribution_guide:                                     Distribution Guide                                      salesforce       \#ffc27b  
+    doc:                                                    Doc                                                     salesforce       \#ffb25b  
+    docs:                                                   Docs                                                    experience       \#ff8200  
+    domain_management:                                      Domain Management                                       salesforce       \#e57200  
+    domain_name:                                            Domain Name                                             salesforce       \#be6a14  
+    draes:                                                  Draes                                                   salesforce       \#9b5a1a  
+    eclipse:                                                Eclipse                                                 platform         \#efd19f  
+    ee:                                                     EE                                                      salesforce       \#efbe7d  
+    einstein:                                               Einstein                                                einstein         \#eca154  
+    einstein_article_recommendations:                       Einstein Article Recommendations                        einstein         \#e87722  
+    einstein_data_detect:                                   Einstein Data Detect                                    einstein         \#cb6015  
+    einstein_platform_services:                             Einstein Platform Services                              einstein         \#a1561c  
+    einstein_reply_recommendations:                         Einstein Reply Recommendations                          einstein         \#603d20  
+    email:                                                  Email                                                   salesforce       \#ffae62  
+    email_integrations:                                     Email Integrations                                      salesforce       \#ff8f1c  
+    email_security:                                         Email Security                                          salesforce       \#ff6900  
+    emailadmin:                                             Email Admin                                             salesforce       \#b94700  
+    embedded_services:                                      Embedded Services                                       salesforce       \#94450b  
+    embedded_services_web:                                  Embedded Services Web                                   salesforce       \#653819  
+    emergency_response_management:                          Emergency Response Management                           salesforce       \#ffb990  
+    enterprise_territory_management:                        Enterprise Territory Management                         salesforce       \#ffa06a  
+    entitlements:                                           Entitlements                                            salesforce       \#ff7f32  
+    entitlements_setup:                                     Entitlements Setup                                      salesforce       \#ff6a13  
+    erm:                                                    ERM                                                     salesforce       \#d86018  
+    essentials:                                             Essentials                                              salesforce       \#a65523  
+    exchange_google_sync_security:                          Exchange Google Sync Security                           salesforce       \#8b4720  
+    exp_cloud_lwr:                                          Exp Cloud LWR                                           experience       \#ffbe9f  
+    experience_cloud:                                       Experience Cloud                                        experience       \#ff9d6e  
+    external_data_integration:                              External Data Integration                               platform         \#ff7f41  
+    external_services:                                      External Services                                       platform         \#ff671f  
+    faq:                                                    FAQ                                                     salesforce       \#e35205  
+    federated_search:                                       Federated Search                                        salesforce       \#be531c  
+    field_history_retention:                                Field History Retention                                 salesforce       \#73381d  
+    field_service:                                          Field Service                                           service          \#db864e  
+    field_service_mobile:                                   Field Service Mobile                                    service          \#e07e3c  
+    field_service_package:                                  Field Service Package                                   service          \#dc6b2f  
+    fields:                                                 Fields                                                  salesforce       \#dc582a  
+    fieldservice:                                           Field Service                                           service          \#c05131  
+    files:                                                  Files                                                   salesforce       \#864a33  
+    finserv:                                                Finserv                                                 salesforce       \#674736  
+    flow:                                                   Flow                                                    salesforce       \#ffa38b  
+    fma:                                                    Fma                                                     salesforce       \#ff8d6d  
+    folders:                                                Folders                                                 salesforce       \#ff6a39  
+    forcecom:                                               Forcecom                                                platform         \#fc4c02  
+    forcecom_development:                                   Forcecom Development                                    platform         \#dc4405  
+    forecasts:                                              Forecasts                                               salesforce       \#a9431e  
+    forecasts3:                                             Forecasts3                                              salesforce       \#833921  
+    fsc_api:                                                FSC API                                                 industries       \#ffb3ab  
+    generate_orders:                                        Generate Orders                                         salesforce       \#ff8674  
+    getstart:                                               Getstart                                                salesforce       \#ff5c39  
+    glossary:                                               Glossary                                                salesforce       \#fa4616  
+    google_apps:                                            Google Apps                                             salesforce       \#cf4520  
+    group:                                                  Group                                                   salesforce       \#963821  
+    guided_engagement:                                      Guided Engagement                                       salesforce       \#6b3529  
+    health1:                                                Health1                                                 salesforce       \#c4622d  
+    healthcare_api:                                         Healthcare API                                          industries       \#ba5826  
+    help:                                                   Help                                                    industries       \#af5c37  
+    high_velocity_sales:                                    High Velocity Sales                                     sales            \#9e5330  
+    icx_b2b:                                                ICX B2B                                                 salesforce       \#924c2e  
+    icx_b2c:                                                ICX B2C                                                 salesforce       \#7b4d35  
+    ide_localization:                                       IDE Localization                                        salesforce       \#5c4738  
+    ideas:                                                  Ideas                                                   salesforce       \#d4b59e  
+    ideas_impl_guide:                                       Ideas Impl Guide                                        salesforce       \#c07d59  
+    identity:                                               Identity                                                salesforce       \#b15533  
+    identityProvider:                                       IdentityProvider                                        salesforce       \#9d432c  
+    impl_person_accounts:                                   Impl Person Accounts                                    salesforce       \#7c3a2d  
+    importing:                                              Importing                                               salesforce       \#6b3d2e  
+    inbox:                                                  Inbox                                                   salesforce       \#5c3d31  
+    incident_management:                                    Incident Management                                     salesforce       \#d14124  
+    individuals:                                            Individuals                                             salesforce       \#bd472a  
+    industries:                                             Industries                                              industries       \#b33d26  
+    industries_einstein:                                    Industries Einstein                                     platform         \#8d3f2b  
+    industries_einstein_api:                                Industries Einstein API                                 salesforce       \#83412c  
+    integrate:                                              Integrate                                               salesforce       \#7b4931  
+    integration_patterns:                                   Integration Patterns                                    platform         \#674230  
+    inventory:                                              Inventory                                               salesforce       \#e4d5d3  
+    iot:                                                    Iot                                                     salesforce       \#e1bbb4  
+    knowledge:                                              Knowledge                                               service          \#d6938a  
+    knowledge_aqi:                                          Knowledge AQI                                           salesforce       \#c26e60  
+    knowledge_feedback:                                     Knowledge Feedback                                      salesforce       \#a4493d  
+    layouts:                                                Layouts                                                 salesforce       \#823b34  
+    ldv_deployments:                                        LDV Deployments                                         salesforce       \#683431  
+    lead_management:                                        Lead Management                                         salesforce       \#ddbcb0  
+    leads:                                                  Leads                                                   salesforce       \#ca9a8e  
+    lex:                                                    Lex                                                     salesforce       \#bc8a7e  
+    lightning_configuration_converter:                      Lightning Configuration Converter                       salesforce       \#a37f74  
+    lightning_scheduler:                                    Lightning Scheduler                                     salesforce       \#866761  
+    limits:                                                 Limits                                                  platform         \#6b4c4c  
+    limits_practices:                                       Limits Practices                                        salesforce       \#583d3e  
+    links:                                                  Links                                                   salesforce       \#eabeb0  
+    lma:                                                    Lma                                                     salesforce       \#c09c83  
+    loyalty:                                                Loyalty                                                 platform         \#b46a55  
+    lwc:                                                    LWC                                                     salesforce       \#ab5c57  
+    macros:                                                 Macros                                                  salesforce       \#a45248  
+    manufacturing:                                          Manufacturing                                           salesforce       \#9a6a4f  
+    manufacturing_api:                                      Manufacturing API                                       industries       \#8a391b  
+    maps:                                                   Maps                                                    platform         \#ecc3b2  
+    marketing:                                              Marketing                                               salesforce       \#ecbaa8  
+    marketing_cloud:                                        Marketing Cloud                                         salesforce       \#eaa794  
+    marketing_cloud_connect:                                Marketing Cloud Connect                                 salesforce       \#e8927c  
+    mc_automation_studio_impl_guide:                        Marketing Cloud Automation Studio Impl Guide            salesforce       \#da291c  
+    mc_journey_builder_impl_guide:                          Marketing Cloud Journey Builder Impl Guide              salesforce       \#9a3324  
+    mc_mobilepush_impl_guide:                               Marketing Cloud Mobile Push Impl Guide                  salesforce       \#653024  
+    mc_overview_security_impl_guide:                        Marketing Cloud Overview Security Impl Guide            salesforce       \#ffb1bb  
+    mcidp:                                                  MCIDP                                                   salesforce       \#ff808b  
+    mdp:                                                    MDP                                                     salesforce       \#ff585d  
+    meetings:                                               Meetings                                                salesforce       \#e03c31  
+    messaging:                                              Messaging                                               salesforce       \#be3a34  
+    misc:                                                   Misc                                                    salesforce       \#81312f  
+    mobile:                                                 Mobile                                                  salesforce       \#ffa3b5  
+    mobile_push_notifications:                              Mobile Push Notifications                               salesforce       \#ff8da1  
+    mobile_sdk:                                             Mobile SDK                                              platform         \#f8485e  
+    mobile_security:                                        Mobile Security                                         salesforce       \#ee2737  
+    monitoring:                                             Monitoring                                              salesforce       \#d22630  
+    multiple_currencies:                                    Multiple Currencies                                     salesforce       \#af272f  
+    mysalesforce:                                           My Salesforce                                           salesforce       \#7c2529  
+    mytrailhead:                                            My Trailhead                                            salesforce       \#fcafc0  
+    networks:                                               Networks                                                salesforce       \#fb637e  
+    netzero:                                                Netzero                                                 salesforce       \#f4364c  
+    next_best_action:                                       Next Best Action                                        salesforce       \#cb333b  
+    notif_builder:                                          Notif Builder                                           salesforce       \#a4343a  
+    omnichannel:                                            Omnichannel                                             service          \#643335  
+    omnichannel_inventory:                                  Omnichannel Inventory                                   salesforce       \#c66e4e  
+    one_c:                                                  One C                                                   commerce         \#c04c36  
+    one_c_setup_guides:                                     One C Setup Guides                                      salesforce       \#b7312c  
+    opportunities:                                          Opportunities                                           salesforce       \#ab2328  
+    optimizer:                                              Optimizer                                               salesforce       \#93272c  
+    orchestrator:                                           Orchestrator                                            salesforce       \#8a2a2b  
+    order:                                                  Order                                                   salesforce       \#802f2d  
+    order_management:                                       Order Management                                        commerce         \#e1523d  
+    outlookcrm:                                             Outlookcrm                                              salesforce       \#c63527  
+    overview:                                               Overview                                                salesforce       \#a72b2a  
+    pages:                                                  Pages                                                   platform         \#9e2a2b  
+    pardot:                                                 Pardot                                                  salesforce       \#6d3332  
+    pardot_ad_studio:                                       Pardot Ad Studio                                        salesforce       \#633231  
+    pardot_b2bma:                                           Pardot B2BMA                                            salesforce       \#572d2d  
+    pardot_b2bma_plus:                                      Pardot B2BMA Plus                                       salesforce       \#e6baa8  
+    pardot_einstein:                                        Pardot Einstein                                         salesforce       \#e56a54  
+    pardot_email_deliverability:                            Pardot Email Deliverability                             salesforce       \#e04e39  
+    pardot_engagement_history:                              Pardot Engagement History                               salesforce       \#cd545b  
+    pardot_engagement_studio:                               Pardot Engagement Studio                                salesforce       \#b04a5a  
+    pardot_pbus:                                            Pardot Pbus                                             salesforce       \#9b2242  
+    pardot_pbus_upgrade:                                    Pardot Pbus Upgrade                                     salesforce       \#651d32  
+    pardot_salesforce_engage:                               Pardot Salesforce Engage                                salesforce       \#fabbcb  
+    pardot_setup:                                           Pardot Setup                                            salesforce       \#fc9bb3  
+    pardot_slack_connector:                                 Pardot Slack Connector                                  salesforce       \#f65275  
+    pardot_user_migration:                                  Pardot User Migration                                   salesforce       \#e4002b  
+    pardot_user_sync:                                       Pardot User Sync                                        salesforce       \#c8102e  
+    pardot_user_sync_legacy:                                Pardot User Sync Legacy                                 salesforce       \#a6192e  
+    partner_licensing_platform:                             Partner Licensing Platform                              salesforce       \#76232f  
+    partner_portal:                                         Partner Portal                                          salesforce       \#ecc7cd  
+    partners:                                               Partners                                                salesforce       \#e89cae  
+    permissions:                                            Permissions                                             salesforce       \#df4661  
+    pilot_api_meta_rest:                                    Pilot API Meta Rest                                     salesforce       \#d50032  
+    pipeline_inspection:                                    Pipeline Inspection                                     salesforce       \#ba0c2f  
+    platform_connect:                                       Platform Connect                                        platform         \#9d2235  
+    platform_events:                                        Platform Events                                         platform         \#862633  
+    private_connect:                                        Private Connect                                         salesforce       \#f8a3bc  
+    process:                                                Process                                                 salesforce       \#f67599  
+    psc_api:                                                PSC API                                                 platform         \#ef426f  
+    public_kbase2_setup:                                    Public Kbase2 Setup                                     salesforce       \#e40046  
+    public_sector_cloud:                                    Public Sector Cloud                                     salesforce       \#bf0d3e  
+    publisher_actions:                                      Publisher Actions                                       salesforce       \#9b2743  
+    qtc:                                                    Qtc                                                     salesforce       \#782f40  
+    quick_text:                                             Quick Text                                              salesforce       \#f5b6cd  
+    quickstart_isv:                                         Quickstart ISV                                          salesforce       \#f59bbb  
+    quicktou:                                               Quicktou                                                salesforce       \#ef4a81  
+    quotes:                                                 Quotes                                                  salesforce       \#e0004d  
+    real_time_event_monitoring:                             Real Time Event Monitoring                              salesforce       \#c5003e  
+    rebate_management:                                      Rebate Management                                       salesforce       \#a6093d  
+    rebates_api:                                            Rebates API                                             platform         \#8a1538  
+    recordtypes:                                            Recordtypes                                             salesforce       \#f5dadf  
+    release_notes:                                          Release Notes                                           salesforce       \#f7ced7  
+    remoteaccess:                                           Remoteaccess                                            salesforce       \#f9b5c4  
+    report_types:                                           Report Types                                            salesforce       \#f890a5  
+    reports:                                                Reports                                                 salesforce       \#ef6079  
+    reports_and_dashboards:                                 Reports and Dashboards                                  salesforce       \#e03e52  
+    reports_intelligent:                                    Reports Intelligent                                     salesforce       \#cb2c30  
+    responsive_self_service:                                Responsive Self Service                                 salesforce       \#f2d4d7  
+    restriction_rules:                                      Restriction Rules                                       salesforce       \#f4c3cc  
+    retail:                                                 Retail                                                  salesforce       \#f2acb9  
+    retail_api:                                             Retail API                                              salesforce       \#e68699  
+    reusables_global:                                       Reusables Global                                        salesforce       \#d25b73  
+    reusables_local:                                        Reusables Local                                         salesforce       \#b83a4b  
+    revenue:                                                Revenue                                                 salesforce       \#9e2a2f  
+    revenue_intelligence:                                   Revenue Intelligence                                    salesforce       \#ecb3cb  
+    rules:                                                  Rules                                                   salesforce       \#e782a9  
+    s2x:                                                    S2x                                                     salesforce       \#e0457b  
+    safety_cloud:                                           Safety Cloud                                            salesforce       \#ce0037  
+    sales:                                                  Sales                                                   salesforce       \#a50034  
+    sales_activity_capture_security:                        Sales Activity Capture Security                         salesforce       \#861f41  
+    sales_activity_capture_sync_only_configurations:        Sales Activity Capture Sync Only Configurations         salesforce       \#6f263d  
+    sales_einstein:                                         Sales Einstein                                          salesforce       \#f99fc9  
+    sales_einstein_high_velocity_sales:                     Sales Einstein High Velocity Sales                      salesforce       \#f57eb6  
+    sales_email_integration_security:                       Sales Email Integration Security                        salesforce       \#f04e98  
+    sales_outlook_integration:                              Sales Outlook Integration                               salesforce       \#e31c79  
+    salesforce_ai_model_cards:                              Salesforce AI Model Cards                               salesforce       \#ce0f69  
+    salesforce_apex_cache_namespace_pilot:                  Salesforce Apex Cache Namespace Pilot                   salesforce       \#ac145a  
+    salesforce_apex_continuation_tipsheet:                  Salesforce Apex Continuation Tipsheet                   salesforce       \#7d2248  
+    salesforce_authenticator:                               Salesforce Authenticator                                salesforce       \#f4cdd4  
+    salesforce_blockchain_tipsheet:                         Salesforce Blockchain Tipsheet                          salesforce       \#e06287  
+    salesforce_chatterplus_tipsheet:                        Salesforce Chatterplus Tipsheet                         salesforce       \#e24585  
+    salesforce_cpq_sales_service_contracts_tipsheet:        Salesforce CPQ Sales Service Contracts Tipsheet         salesforce       \#b52555  
+    salesforce_custom_nc_pilot:                             Salesforce Custom Nc Pilot                              salesforce       \#a4123f  
+    salesforce_data_import_wizard_tipsheet:                 Salesforce Data Import Wizard Tipsheet                  salesforce       \#971b2f  
+    salesforce_defer_sharing:                               Salesforce Defer Sharing                                salesforce       \#6a2c3e  
+    salesforce_developer_environment_tipsheet:              Salesforce Developer Environment Tipsheet               salesforce       \#d6c9ca  
+    salesforce_event_log_onehour_pilot_tipsheet:            Salesforce Event Log Onehour Pilot Tipsheet             salesforce       \#c4a4a7  
+    salesforce_event_metrics_pilot_tipsheet:                Salesforce Event Metrics Pilot Tipsheet                 salesforce       \#c16784  
+    salesforce_field_reference:                             Salesforce Field Reference                              salesforce       \#c63663  
+    salesforce_forecasts3_custom_splits_tipsheet:           Salesforce Forecasts3 Custom SPL ITS Tipsheet           salesforce       \#bc204b  
+    salesforce_forecasts3_custom_splits_tipsheet_end_user:  Salesforce Forecasts3 Custom SPL ITS Tipsheet End User  salesforce       \#912f46  
+    salesforce_forecasts3_overlay_splits_tipsheet:          Salesforce Forecasts3 Overlay SPL ITS Tipsheet          salesforce       \#7e2d40  
+    salesforce_fsc_mass_assign_psl:                         Salesforce FSC Mass Assign PSL                          salesforce       \#eabedb  
+    salesforce_localization_overview:                       Salesforce Localization Overview                        salesforce       \#e56db1  
+    salesforce_maps_territory_planning:                     Salesforce Maps Territory Planning                      salesforce       \#da1884  
+    salesforce_mobile_self_service:                         Salesforce Mobile Self Service                          salesforce       \#a50050  
+    salesforce_portal_to_community_migration_cheatsheet:    Salesforce Portal to Community Migration Cheatsheet     salesforce       \#910048  
+    salesforce_privacy_center:                              Salesforce Privacy Center                               salesforce       \#6c1d45  
+    salesforce_reports_enhanced_reports_tab_tipsheet:       Salesforce Reports Enhanced Reports Tab Tipsheet        salesforce       \#936d73  
+    salesforce_scheduler:                                   Salesforce Scheduler                                    salesforce       \#934054  
+    salesforce_sharing_users_tipsheet:                      Salesforce Sharing Users Tipsheet                       salesforce       \#8e2c48  
+    salesforce_sitecom_communities_pilot_tipsheet:          Salesforce Sitecom Communities Pilot Tipsheet           salesforce       \#732e4a  
+    salesforce_technical_requirements:                      Salesforce Technical Requirements                       salesforce       \#672e45  
+    salesforce1:                                            Salesforce1                                             platform         \#582d40  
+    salesforce1_security:                                   Salesforce1 Security                                    salesforce       \#502b3a  
+    salesforce1_url:                                        Salesforce1 URL                                         salesforce       \#ef95cf  
+    salesteam:                                              Sales Team                                              salesforce       \#eb6fbd  
+    scoping_rules:                                          Scoping Rules                                           service          \#df1995  
+    scs_social_publisher_component:                         SCS Social Publisher Component                          salesforce       \#d0006f  
+    scs_social_publisher_search_components:                 SCS Social Publisher Search Components                  salesforce       \#aa0061  
+    search:                                                 Search                                                  salesforce       \#890c58  
+    search_and_tags:                                        Search and Tags                                         salesforce       \#672146  
+    secure_code:                                            Secure Code                                             salesforce       \#f4a6d7  
+    secure_coding:                                          Secure Coding                                           platform         \#f277c6  
+    security:                                               Security                                                salesforce       \#e93cac  
+    security_command_center:                                Security Command Center                                 salesforce       \#c6007e  
+    security_platform_encryption:                           Security Platform Encryption                            salesforce       \#a20067  
+    security_review:                                        Security Review                                         salesforce       \#840b55  
+    service:                                                Service                                                 salesforce       \#ead3e2  
+    service_cloud_console:                                  Service Cloud Console                                   salesforce       \#e6bcd8  
+    service_cloud_mobile:                                   Service Cloud Mobile                                    salesforce       \#dfa0c9  
+    service_cloud_voice:                                    Service Cloud Voice                                     salesforce       \#d986ba  
+    service_collaboration:                                  Service Collaboration                                   salesforce       \#c6579a  
+    service_sdk:                                            Service SDK                                             service          \#ae2573  
+    sfdo_success_metrics_worksheet:                         Sfdo Success Metrics Worksheet                          salesforce       \#960051  
+    sfdx_cli:                                               SFDX CLI                                                platform         \#e5cedb  
+    sfdx_dev:                                               SFDX Dev                                                platform         \#e3c8d8  
+    sfdx_setup:                                             SFDX Setup                                              platform         \#debed2  
+    sfo_getting_started:                                    SFO Getting Started                                     salesforce       \#c996b6  
+    shared_contacts:                                        Shared Contacts                                         salesforce       \#b06c96  
+    siteforce:                                              Siteforce                                               salesforce       \#994878  
+    sites:                                                  Sites                                                   salesforce       \#7c2855  
+    slack_apps:                                             Slack Apps                                              salesforce       \#e4c6d4  
+    slack_builder:                                          Slack Builder                                           salesforce       \#dcb6c9  
+    smb_sales_implementation_guide:                         SMB Sales Implementation Guide                          salesforce       \#d0a1ba  
+    social:                                                 Social                                                  salesforce       \#be84a3  
+    social_networks:                                        Social Networks                                         salesforce       \#a76389  
+    social_studio:                                          Social Studio                                           -z salesforce    \#893b67  
+    solution_kits:                                          Solution Kits                                           salesforce       \#612141  
+    solutions:                                              Solutions                                               salesforce       \#ebbecb  
+    solutions_impl_guide:                                   Solutions Impl Guide                                    salesforce       \#e8b3c3  
+    soql_sosl:                                              SOQL SOSL                                               platform         \#e4a9bb  
+    sos:                                                    SOS                                                     salesforce       \#d592aa  
+    state_country_picklists:                                State Country Picklists                                 salesforce       \#84344e  
+    storebuilder:                                           Storebuilder                                            salesforce       \#6f2c3f  
+    subscription_management:                                Subscription Management                                 salesforce       \#572932  
+    surveys:                                                Surveys                                                 salesforce       \#e2bccb  
+    sustainability:                                         Sustainability                                          sustainability   \#dca9bf  
+    teams_integration:                                      Teams Integration                                       salesforce       \#c9809e  
+    technical_requirements:                                 Technical Requirements                                  salesforce       \#b55c80  
+    templates:                                              Templates                                               salesforce       \#a73a64  
+    territory_management2:                                  Territory management2                                   salesforce       \#9b3259  
+    territory_mgmt_2_planning:                              Territory MGM T2 Planning                               salesforce       \#872651  
+    territory_mgmt2:                                        Territory MGM T2                                        salesforce       \#e9cdd0  
+    testing_authoring_css:                                  Testing Authoring CSS                                   salesforce       \#e4bec3  
+    trailblazer_identity:                                   Trailblazer Identity                                    salesforce       \#d7a3ab  
+    users:                                                  Users                                                   salesforce       \#c48490  
+    usersetup:                                              User Setup                                              salesforce       \#b46b7a  
+    utility_bar:                                            Utility Bar                                             salesforce       \#984856  
+    vaccine_mgt:                                            Vaccine MGT                                             salesforce       \#893c47  
+    vf_best_practices:                                      VF Best Practices                                       salesforce       \#f2c6cf  
+    visual_app_builder:                                     Visual App Builder                                      salesforce       \#f1bdc8  
+    voice:                                                  Voice                                                   service          \#e9a2b2  
+    voice_pt:                                               Voice PT                                                service          \#dc8699  
+    vpm:                                                    VPM                                                     platform         \#8f3237  
+    wealth:                                                 Wealth                                                  salesforce       \#7f3035  
+    work_orders:                                            Work Orders                                             salesforce       \#5d2a2c  
+    workbench:                                              Workbench                                               salesforce       \#e9c4c7  
+    workbook_vf:                                            Workbook VF                                             salesforce       \#e5bac1  
+    workcom:                                                Workcom                                                 salesforce       \#daa5ad  
+    workdotcom:                                             Workdotcom                                              industries       \#c6858f  
+    workdotcom_rn:                                          Workdotcom RN                                           salesforce       \#7a3e3a  
+    workflow:                                               Workflow                                                salesforce       \#6a3735  
+    workforce_engagement:                                   Workforce Engagement                                    salesforce       \#512f2e  
+    xe:                                                     XE                                                      x                \#dfc2c3  
+
+# Note to Tyrin: We could do a lot of different approaches to a default color: split it up by
+# domain, and group domains with allowlists and excludelists. For now, this is what I am doing, and
+# since the spec says a dark plum, this is my best guess at a dark plum.
+
+#group default color: \#3d1a39
+
+# Tyrin said to use black instead of dark plum.
+
+group default color: \#000000
+
+
+sf internal domains:
+    - admin.salesforce.com
+    - b2b.learncommercecloud.com
+    - c360datamanagerlearningmap.com
+    - cloudcraze.atlassian.net
+    - devcenter.heroku.com
+    - developer.pardot.com
+    - developer.salesforce.com
+    - docs.mulesoft.com
+    - gus.lightning.force.com
+    - help.salesforce.com
+    - intranet.demandware.com
+    - lightningdesignsystem.com
+    - lightningtransitionlearningmap.com
+    - lwc.dev
+    - metamind.readme.io
+    - pages.mail.salesforce.com
+    - partners.salesforce.com
+    - quip.com
+    - raptor.sfdc.es
+    - tableau.github.io
+    - trailhead.salesforce.com
+    - www.einsteinanalyticslearningmap.com
+    - www.lightningdesignsystems.com
+    - www.tableau.com
