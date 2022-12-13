@@ -558,10 +558,10 @@ def path_or_url_to_node(actionable_path_or_url, group_lookup_table,
         '''
         actionable_local_path = actionable_path_or_url
         # Maintenance work by M.G. on 13 December 2022: preparing to disam-
-        # biguate the title (from "Placeholder Title" by getting the url 
+        # biguate the title (from "Placeholder Title") by getting the url 
         # filename.
-        url_file_name = re.sub(
-            r'^.*?/([^/]+)$', r'\1', actionable_local_path)
+        url_file_name_no_extension = re.sub(
+            r'^.*?/([^/]+?)(\.[^.]{1,4})?$', r'\1', actionable_local_path)
         
         content_domain = node_id.split(nn_elem_delim)[1]
         portal = node_id.split(nn_elem_delim)[0]
@@ -584,12 +584,12 @@ def path_or_url_to_node(actionable_path_or_url, group_lookup_table,
             #group = 'PLACEHOLDER'
 
         # Maintenance work by M.G. on 13 December 2022:  disam-
-        # biguate the title (from "Placeholder Title" by substituting the url 
+        # biguate the title (from "Placeholder Title") by substituting the url 
         # filename.
         #title = "Placeholder Title" # Old way commented out. 
-        title = url_file_name
+        title = titleize(url_file_name_no_extension)
         label = f'{label_part_1of2} - {title}'
-        #import pdb; pdb.set_trace() 
+        import pdb; pdb.set_trace() 
         return node_id, portal, content_domain, label_part_1of2, title, label, \
           color, cloud
     else:
