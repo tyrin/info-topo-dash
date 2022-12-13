@@ -258,7 +258,7 @@ def ensure_files_of_interest_entry(root_dir, rel_path, group_lookup,
                              # opened in 'analyze_file_for_links', or possibly
                              # at some other time (for urls). Also this had 
                              # been 'target label', but it occurs to me that it
-                             # should be the same value for targe or source, 
+                             # should be the same value for target or source, 
                              # so I changed it to just 'label'.
           'cloud': cloud,
           'color': color,
@@ -345,7 +345,7 @@ def slugified(string):
     string = re.sub(r'//',r'_', string)
     # I am not sure what the conversion immediately above means, and am adding
     # the one below as I think this what is intended, AND it matches what is in
-    # Tyrin's filterdata spreasheet.  
+    # Tyrin's filterdata spreadsheet.  
     string = re.sub(r'/',r'_', string)
     return string
 
@@ -556,8 +556,13 @@ def path_or_url_to_node(actionable_path_or_url, group_lookup_table,
         This should handle both a top-level doc, and any ref that cites a local
         doc.
         '''
-        
         actionable_local_path = actionable_path_or_url
+        # Maintenance work by M.G. on 13 December 2022: preparing to disam-
+        # biguate the title (from "Placeholder Title" by getting the url 
+        # filename.
+        url_file_name = re.sub(
+            r'^.*?/([^/]+)$', r'\1', actionable_local_path)
+        
         content_domain = node_id.split(nn_elem_delim)[1]
         portal = node_id.split(nn_elem_delim)[0]
         if content_domain in group_lookup_table:
@@ -577,9 +582,14 @@ def path_or_url_to_node(actionable_path_or_url, group_lookup_table,
             cloud = 'Salesforce'
             color = group_default_color
             #group = 'PLACEHOLDER'
-        title = "Placeholder Title"
-        label = f'{label_part_1of2} - {title}'
 
+        # Maintenance work by M.G. on 13 December 2022:  disam-
+        # biguate the title (from "Placeholder Title" by substituting the url 
+        # filename.
+        #title = "Placeholder Title" # Old way commented out. 
+        title = url_file_name
+        label = f'{label_part_1of2} - {title}'
+        #import pdb; pdb.set_trace() 
         return node_id, portal, content_domain, label_part_1of2, title, label, \
           color, cloud
     else:
