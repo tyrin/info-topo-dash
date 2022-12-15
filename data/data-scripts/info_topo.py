@@ -589,7 +589,6 @@ def path_or_url_to_node(actionable_path_or_url, group_lookup_table,
         #title = "Placeholder Title" # Old way commented out. 
         title = titleize(url_file_name_no_extension)
         label = f'{label_part_1of2} - {title}'
-        import pdb; pdb.set_trace() 
         return node_id, portal, content_domain, label_part_1of2, title, label, \
           color, cloud
     else:

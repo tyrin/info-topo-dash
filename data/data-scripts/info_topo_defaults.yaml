@@ -36,9 +36,9 @@ operational:
     csv titles: "Source,Target,Weight,Ref,Group,Color,Label,TargetGroup,TargetColor,TargetLabel,TargetURL,Portal"
     # The f-string below is evaluated for each line of the CSV file.
     # Maintain escaped double quotes (\") in csv format around any value that might possibly hold commas.
-    # Anything with a title value: labels and node ids.
+    # Anything with a title value: labels, node ids, and urls.
     # It should correspond to:
-    # Source, Target, Weight, Ref, Group, Color, Label, TargetGroup, TargetColor, TargetLabel, TargetUrl, Portal
+    # Source, Target, Weight, Ref, Group, Color, Label, TargetGroup, TargetColor, TargetLabel, TargetUrl
     csv format: f"\"{source['node id']}\",\"{target['node id']}\",{target['weight']},{target['reftype'][0]},{source['content domain']},{source['color']},\"{source['label']}\",{target['content domain']},{target['color']},\"{target['label']}\",\"{target['url']}\",\"{source['portal']}\""
 
 # The following section is treated as a "quasi-table": not a real table,
